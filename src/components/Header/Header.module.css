@@ -1,0 +1,173 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  transition:
+    background-color var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition),
+    backdrop-filter var(--transition);
+  border-bottom: 1px solid transparent;
+}
+
+/* Стан після скролу — з'являється скляний фон */
+.scrolled {
+  background: rgba(14, 14, 16, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Коли відкрите мобільне меню — робимо смугу хедера суцільною
+   й прибираємо backdrop-filter (щоб не ламав fixed-позицію меню). */
+.menuActive,
+.menuActive.scrolled {
+  background: var(--color-bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* ===== Десктоп-навігація ===== */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.link {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-full);
+  transition: color var(--transition);
+}
+.link::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 2px;
+  height: 1px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition);
+}
+.link:hover {
+  color: var(--color-text);
+}
+.link.active {
+  color: var(--color-gold-soft);
+}
+.link.active::after {
+  transform: scaleX(1);
+}
+
+/* ===== Дії праворуч ===== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ===== Бургер ===== */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+}
+.burger span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+.burgerOpen span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.burgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+.burgerOpen span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ===== Мобільне меню ===== */
+.mobileMenu {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  background: var(--color-bg);
+  padding: 40px var(--container-pad);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+}
+.mobileOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobileLink {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  color: var(--color-text-muted);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--transition), padding-left var(--transition);
+}
+.mobileLink:hover,
+.mobileLink.active {
+  color: var(--color-gold-soft);
+  padding-left: 10px;
+}
+.mobileCta {
+  margin-top: 28px;
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 860px) {
+  .nav {
+    display: none;
+  }
+  .cta {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+}

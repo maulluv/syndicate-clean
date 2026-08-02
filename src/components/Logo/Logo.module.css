@@ -1,0 +1,57 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: opacity var(--transition);
+}
+.logo:hover {
+  opacity: 0.85;
+}
+.logo:hover .mark svg {
+  transform: rotate(90deg) scale(1.05);
+}
+
+.mark {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.mark svg {
+  width: var(--mark-size, 36px);
+  height: var(--mark-size, 36px);
+  transition: transform 0.5s var(--ease);
+  filter: drop-shadow(0 2px 8px rgba(201, 168, 106, 0.35));
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: var(--name-size, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-text);
+}
+
+.tagline {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+}
+
+/* Sizes */
+.sm {
+  --mark-size: 30px;
+  --name-size: 1.3rem;
+}
+.md {
+  --mark-size: 36px;
+  --name-size: 1.6rem;
+}
