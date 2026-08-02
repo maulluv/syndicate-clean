@@ -29,29 +29,50 @@ export default function Chemistry() {
         </div>
       </Container>
 
-      {/* Модалка з описом обраного засобу */}
-      <Modal
-        isOpen={!!active}
-        onClose={() => setActive(null)}
-        size="lg"
-        corner={
-          active && (
-            <div className={styles.cornerBottle} style={{ '--accent': active.color }}>
-              <ChemBottle color={active.color} uid={`modal-${active.id}`} />
-            </div>
-          )
-        }
-      >
+      {/* Модалка: реальне фото засобу (із запасним SVG-флаконом) + опис */}
+      <Modal isOpen={!!active} onClose={() => setActive(null)} size="lg">
         {active && (
-          <div className={styles.modalBody}>
-            <span className={styles.modalShort} style={{ color: active.color }}>
-              {active.short}
-            </span>
-            <h2 className={styles.modalTitle}>{active.title}</h2>
-            <p className={styles.modalDesc}>{active.desc}</p>
+          <div className={styles.modalWrap}>
+            <div className={styles.modalMedia} style={{ '--accent': active.color }}>
+              <ProductVisual item={active} key={active.id} />
+            </div>
+            <div className={styles.modalBody}>
+              <span className={styles.modalShort} style={{ color: active.color }}>
+                {active.short}
+              </span>
+              <h2 className={styles.modalTitle}>{active.title}</h2>
+              {active.meta && <p className={styles.modalMeta}>{active.meta}</p>}
+              <p className={styles.modalDesc}>{active.desc}</p>
+            </div>
           </div>
         )}
       </Modal>
     </section>
+  )
+}
+
+/**
+ * ProductVisual — реальне фото засобу; якщо файлу ще немає (або він не
+ * завантажився), плавно відкочується до SVG-флакона того ж кольору.
+ */
+function ProductVisual({ item }) {
+  const [failed, setFailed] = useState(false)
+
+  if (!item.photo || failed) {
+    return (
+      <div className={styles.modalBottle}>
+        <ChemBottle color={item.color} uid={`modal-${item.id}`} />
+      </div>
+    )
+  }
+
+  return (
+    <img
+      className={styles.modalPhoto}
+      src={item.photo}
+      alt={item.title}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
   )
 }

@@ -24,17 +24,40 @@
 }
 
 /* ===== Вміст модалки ===== */
-.cornerBottle {
-  width: 100%;
-  height: 100%;
+.modalWrap {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+.modalMedia {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 26%, transparent), var(--color-bg-soft) 72%);
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%);
+}
+.modalPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modalBottle {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .modalBody {
-  padding-top: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 8px;
 }
 .modalShort {
   font-size: 0.74rem;
@@ -43,12 +66,31 @@
 }
 .modalTitle {
   font-size: 2.1rem;
-  margin: 10px 0 16px;
+  margin: 10px 0 8px;
+}
+.modalMeta {
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-dim);
+  margin-bottom: 16px;
 }
 .modalDesc {
   color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.75;
+}
+
+@media (max-width: 680px) {
+  .modalWrap {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .modalMedia {
+    min-height: 220px;
+  }
+  .modalBody {
+    padding: 0;
+  }
 }
 
 @media (max-width: 980px) {

@@ -19,7 +19,16 @@ export default function ChemistryCard({ item, onClick }) {
       <div className={styles.media}>
         <div className={styles.glow} />
         <div className={styles.bottle}>
-          <ChemBottle color={item.color} uid={item.id} />
+          {item.cardPhoto ? (
+            <img
+              className={styles.bottleImg}
+              src={item.cardPhoto}
+              alt={item.title}
+              loading="lazy"
+            />
+          ) : (
+            <ChemBottle color={item.color} uid={item.id} />
+          )}
         </div>
       </div>
 
