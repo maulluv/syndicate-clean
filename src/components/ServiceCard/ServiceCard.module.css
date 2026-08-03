@@ -10,10 +10,36 @@
   overflow: hidden;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
-.card:hover {
-  transform: translateY(-6px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+  }
+  .card:hover .video {
+    transform: scale(1.05);
+  }
+}
+.card:active {
+  transform: scale(0.99);
+}
+.card.inView {
+  animation: cardReveal 0.7s var(--ease) both;
+}
+@keyframes cardReveal {
+  from {
+    opacity: 0.3;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card.inView {
+    animation: none;
+  }
 }
 
 /* ===== Медіа ===== */
@@ -28,9 +54,6 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s var(--ease);
-}
-.card:hover .video {
-  transform: scale(1.05);
 }
 
 /* Підказка «наведіть» поверх відео */

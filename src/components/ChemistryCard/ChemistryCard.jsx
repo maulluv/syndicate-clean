@@ -1,4 +1,5 @@
 import ChemBottle from '@/components/ChemBottle'
+import { useInView } from '@/hooks/useInView'
 import styles from './ChemistryCard.module.css'
 
 /**
@@ -9,9 +10,12 @@ import styles from './ChemistryCard.module.css'
  * @param {() => void} onClick
  */
 export default function ChemistryCard({ item, onClick }) {
+  const [ref, inView] = useInView()
+
   return (
     <button
-      className={styles.card}
+      ref={ref}
+      className={`${styles.card} ${inView ? styles.inView : ''}`}
       onClick={onClick}
       style={{ '--accent': item.color }}
       aria-label={`Детальніше про «${item.title}»`}

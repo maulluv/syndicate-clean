@@ -13,6 +13,13 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Прибираємо сірий блик при тапі на мобільному */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {

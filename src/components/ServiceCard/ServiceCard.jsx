@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { PlayIcon } from '@/components/icons'
+import { useInView } from '@/hooks/useInView'
 import styles from './ServiceCard.module.css'
 
 /**
@@ -12,6 +13,7 @@ import styles from './ServiceCard.module.css'
 export default function ServiceCard({ service, onOpen }) {
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+  const [cardRef, inView] = useInView()
 
   const handleEnter = () => {
     const v = videoRef.current
@@ -31,7 +33,8 @@ export default function ServiceCard({ service, onOpen }) {
 
   return (
     <button
-      className={styles.card}
+      ref={cardRef}
+      className={`${styles.card} ${inView ? styles.inView : ''}`}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onClick={onOpen}

@@ -38,3 +38,11 @@
   --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.45);
   --shadow-gold: 0 8px 30px rgba(201, 168, 106, 0.25);
 }
+
+/* ===== Компактніші токени на телефоні ===== */
+@media (max-width: 600px) {
+  :root {
+    --header-height: 64px;
+    --container-pad: 18px;
+  }
+}
