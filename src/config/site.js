@@ -159,7 +159,6 @@ export const CHEMISTRY = [
     meta: 'CHEMSPEC · передспрей',
     color: '#6ea3c9',
     photo: '/chemistry/chemspec-formula-90-liquid-3-8l.png',
-    cardPhoto: '/chemistry/cut/chemspec-formula-90-liquid-3-8l.png',
     desc: 'Потужний передспрей для екстракторного чищення килимів і мʼяких меблів. Ефективно розчиняє жирові та застарілі забруднення перед основним чищенням.',
   },
   {
