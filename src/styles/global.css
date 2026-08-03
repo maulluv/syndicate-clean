@@ -90,7 +90,7 @@ ol {
 .eyebrow {
   display: inline-block;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;

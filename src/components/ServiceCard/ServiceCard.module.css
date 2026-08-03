@@ -67,7 +67,7 @@
   gap: 10px;
   color: var(--color-text);
   background: linear-gradient(to top, rgba(10, 10, 12, 0.65), rgba(10, 10, 12, 0.2));
-  font-size: 0.78rem;
+  font-size: var(--fs-caption);
   letter-spacing: 0.06em;
   opacity: 1;
   transition: opacity var(--transition);
@@ -96,7 +96,7 @@
   backdrop-filter: blur(6px);
   border: 1px solid var(--color-border-strong);
   color: var(--color-gold-soft);
-  font-size: 0.82rem;
+  font-size: var(--fs-caption);
   font-weight: 500;
   letter-spacing: 0.02em;
 }
@@ -110,16 +110,16 @@
   flex: 1;
 }
 .title {
-  font-size: 1.5rem;
+  font-size: var(--fs-title-card);
 }
 .desc {
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   flex: 1;
 }
 .more {
   margin-top: 6px;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   color: var(--color-text-muted);
   transition: color var(--transition), letter-spacing var(--transition);
 }

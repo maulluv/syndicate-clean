@@ -29,7 +29,7 @@
   backdrop-filter: blur(6px);
   border: 1px solid var(--color-border-strong);
   color: var(--color-gold-soft);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   font-weight: 500;
 }
 
@@ -40,11 +40,11 @@
   align-items: flex-start;
 }
 .title {
-  font-size: 2rem;
+  font-size: var(--fs-title-modal);
 }
 .desc {
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.7;
 }
 .info button {

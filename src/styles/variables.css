@@ -20,6 +20,22 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
+  /* ===== Типографічна шкала (єдині токени для всього сайту) =====
+     Ролі, а не «магічні» числа. Заголовки адаптивні через clamp —
+     самі масштабуються на телефоні. Міняємо розмір ролі — тут, в одному місці. */
+  --fs-eyebrow: 0.75rem;   /* маленькі UPPERCASE-мітки (eyebrow, лейбли) */
+  --fs-caption: 0.82rem;   /* підказки, мета, дрібні підписи */
+  --fs-sm: 0.9rem;         /* дрібний текст: футер, навігація, описи карток */
+  --fs-body: 1rem;         /* основний текст */
+  --fs-lead: 1.05rem;      /* вступні абзаци під заголовком */
+  --fs-title-sm: 1.2rem;   /* маленькі заголовки (переваги, цитати) */
+  --fs-title-card: clamp(1.3rem, 1.05rem + 1.1vw, 1.5rem);  /* заголовки карток */
+  --fs-title-modal: clamp(1.7rem, 1.2rem + 2vw, 2.1rem);    /* заголовки модалок / груп */
+  --fs-title-section: clamp(2rem, 1.3rem + 3vw, 3.4rem);    /* підзаголовки секцій, CTA футера */
+  --fs-title-page: clamp(2.4rem, 1.5rem + 4.5vw, 4.5rem);   /* H1 сторінок */
+  --fs-display-a: clamp(3.2rem, 1.4rem + 9vw, 8.5rem);      /* герой — рукописний рядок */
+  --fs-display-b: clamp(2.2rem, 1rem + 6vw, 5rem);          /* герой — блоковий рядок */
+
   /* ===== Layout ===== */
   --container-max: 1240px;
   --container-pad: 24px;

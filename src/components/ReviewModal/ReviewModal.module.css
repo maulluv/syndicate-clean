@@ -35,7 +35,7 @@
   backdrop-filter: blur(6px);
   border: 1px solid var(--color-border-strong);
   color: var(--color-text);
-  font-size: 0.78rem;
+  font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -105,13 +105,13 @@
 /* ===== Текст ===== */
 .note {
   text-align: center;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   color: var(--color-text-muted);
   margin-top: 4px;
 }
 .text {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-size: var(--fs-title-sm);
   font-style: italic;
   line-height: 1.5;
   color: var(--color-text);
@@ -127,7 +127,7 @@
   color: var(--color-text);
 }
 .role {
-  font-size: 0.82rem;
+  font-size: var(--fs-caption);
   color: var(--color-text-muted);
 }
 
@@ -144,7 +144,7 @@
 }
 .ctaText {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: var(--fs-title-sm);
   font-style: italic;
   color: var(--color-gold-soft);
 }
