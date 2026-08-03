@@ -140,6 +140,7 @@ export const CHEMISTRY = [
     meta: 'CHEMSPEC · pH 10.4',
     color: '#7cc98a',
     photo: '/chemistry/chemspec-enz-all-2-7kg.png',
+    cardPhoto: '/chemistry/cut/chemspec-enz-all-2-7kg.png',
     desc: 'Ензимний засіб у формі білого порошку для передобробки застарілих і складних забруднень на мʼяких меблях та килимах. Розщеплює білкові й органічні плями — від їжі, кави, чаю, крові — які звичайні засоби не беруть.',
   },
   {
@@ -159,6 +160,7 @@ export const CHEMISTRY = [
     meta: 'CHEMSPEC · передспрей',
     color: '#6ea3c9',
     photo: '/chemistry/chemspec-formula-90-liquid-3-8l.png',
+    cardPhoto: '/chemistry/cut/chemspec-formula-90-liquid-3-8l.png',
     desc: 'Потужний передспрей для екстракторного чищення килимів і мʼяких меблів. Ефективно розчиняє жирові та застарілі забруднення перед основним чищенням.',
   },
   {
