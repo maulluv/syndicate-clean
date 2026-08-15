@@ -8,29 +8,43 @@
 }
 
 /* ===== Фон ===== */
+/* Градієнт — базовий шар. Він же лишається фолбеком, якщо фото ще немає. */
 .bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  /* Плейсхолдер, поки немає відео */
   background:
-    radial-gradient(80% 60% at 70% 30%, rgba(201, 168, 106, 0.18), transparent 60%),
-    radial-gradient(60% 50% at 20% 80%, rgba(90, 70, 40, 0.25), transparent 60%),
-    linear-gradient(160deg, #17150f 0%, #0e0e10 55%, #0b0b0d 100%);
+    radial-gradient(70% 55% at 72% 28%, rgba(233, 196, 130, 0.28), transparent 62%),
+    radial-gradient(90% 70% at 78% 34%, rgba(150, 104, 52, 0.35), transparent 70%),
+    radial-gradient(60% 50% at 18% 82%, rgba(90, 70, 40, 0.28), transparent 65%),
+    linear-gradient(155deg, #1c1810 0%, #12100c 45%, #0b0b0d 100%);
 }
-.video {
+.photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
+/* Затемнення підібране під світле фото: колір теплий (#14110c), а не чорний,
+   інакше беж під ним сіріє. Зліва щільніше — там лягає заголовок, справа
+   лишаємо вікно світлим, щоб кадр дихав. */
 .overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(10, 10, 12, 0.85) 0%, rgba(10, 10, 12, 0.35) 55%, transparent 100%),
-    linear-gradient(to top, rgba(10, 10, 12, 0.9) 0%, transparent 40%);
+    /* Шапка — щоб лого й пункти меню читались на світлій стіні */
+    linear-gradient(to bottom, rgba(16, 13, 9, 0.8) 0%, transparent 100%) top / 100% 20% no-repeat,
+    linear-gradient(
+      90deg,
+      rgba(20, 17, 12, 0.86) 0%,
+      rgba(20, 17, 12, 0.8) 30%,
+      rgba(20, 17, 12, 0.62) 46%,
+      rgba(20, 17, 12, 0.22) 72%,
+      rgba(20, 17, 12, 0.06) 100%
+    ),
+    linear-gradient(to top, rgba(16, 14, 10, 0.72) 0%, transparent 42%);
 }
 
 /* ===== Контент ===== */
@@ -70,7 +84,8 @@
 .subtitle {
   max-width: 46ch;
   font-size: var(--fs-lead);
-  color: var(--color-text-muted);
+  /* Світліше за звичайний muted — лід лежить на фото, а не на суцільному тлі */
+  color: #d8d3c8;
   margin-bottom: 40px;
   animation: fadeUp 0.8s var(--ease) 0.3s both;
 }
@@ -96,13 +111,122 @@
   font-size: 0.68rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-text-dim);
+  color: var(--color-text-muted);
+  /* Індикатор падає на світлу частину фото — тінь тримає його читабельним */
+  text-shadow: 0 1px 10px rgba(12, 10, 7, 0.85);
 }
 .scrollLine {
   width: 1px;
   height: 48px;
   background: linear-gradient(to bottom, var(--color-gold), transparent);
   animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ===== Блок «Наш підхід» (текст власника) ===== */
+.intro {
+  position: relative;
+  padding: clamp(64px, 11vw, 120px) 0 clamp(72px, 12vw, 130px);
+  background: linear-gradient(to bottom, var(--color-bg) 0%, var(--color-bg-soft) 100%);
+}
+.introInner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(32px, 6vw, 72px);
+  align-items: start;
+}
+
+.introTitle {
+  font-size: var(--fs-title-modal);
+  line-height: 1.25;
+  margin: 18px 0 28px;
+  max-width: 26ch;
+}
+.introParagraph {
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  max-width: 52ch;
+  margin-bottom: 18px;
+}
+
+/* «Без зайвих обіцянок. / Без поспіху. / Без компромісів у якості.» */
+.principles {
+  margin-top: 28px;
+  padding-left: 20px;
+  border-left: 1px solid var(--color-gold-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.principles li {
+  font-family: var(--font-serif);
+  font-size: var(--fs-title-sm);
+  font-style: italic;
+  color: var(--color-gold-soft);
+}
+
+/* Права колонка */
+.introAside {
+  padding: clamp(24px, 4vw, 36px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+}
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.point {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: var(--fs-body);
+  color: var(--color-text);
+}
+.pointIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  color: var(--color-gold);
+  background: var(--color-gold-dim);
+}
+.outro {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  padding-top: 22px;
+  border-top: 1px solid var(--color-border);
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 22px 0 26px;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+.meta > :first-child {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.closing {
+  margin-top: clamp(48px, 8vw, 80px);
+  padding-top: clamp(28px, 5vw, 44px);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: var(--fs-title-modal);
+  font-style: italic;
+  color: var(--color-gold-soft);
 }
 
 @keyframes fadeUp {
@@ -128,9 +252,44 @@
   }
 }
 
-@media (max-width: 560px) {
+/* Вузький екран: колонка тексту займає майже всю ширину, тож бічне затемнення
+   вже не рятує — переходимо на затемнення знизу вгору, а текст притискаємо
+   донизу. Верх кадру лишається світлим, там видно кімнату з диваном. */
+@media (max-width: 900px) {
+  .introInner {
+    grid-template-columns: 1fr;
+  }
+  .introAside {
+    position: static;
+  }
+  .hero {
+    align-items: flex-end;
+  }
+  .inner {
+    padding-bottom: 9vh;
+  }
+  /* Контент притиснутий донизу — індикатор скролу вже нема куди поставити */
   .scroll {
     display: none;
+  }
+  .overlay {
+    background:
+      /* Верхня шапка — щоб лого й бургер не губились на світлій стіні */
+      linear-gradient(to bottom, rgba(16, 13, 9, 0.72) 0%, transparent 100%) top / 100% 22% no-repeat,
+      linear-gradient(
+        to top,
+        rgba(16, 13, 9, 0.93) 0%,
+        rgba(16, 13, 9, 0.9) 36%,
+        rgba(16, 13, 9, 0.74) 54%,
+        rgba(16, 13, 9, 0.3) 76%,
+        rgba(16, 13, 9, 0.08) 100%
+      );
+  }
+}
+
+@media (max-width: 560px) {
+  .inner {
+    padding-bottom: 7vh;
   }
   .actions {
     flex-direction: column;
@@ -142,5 +301,8 @@
   }
   .subtitle {
     margin-bottom: 32px;
+  }
+  .introAside > :last-child {
+    width: 100%;
   }
 }

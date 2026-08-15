@@ -1,60 +1,27 @@
-import { useRef, useState } from 'react'
-import { PlayIcon } from '@/components/icons'
+import ServicePhoto from '@/components/ServicePhoto'
 import { useInView } from '@/hooks/useInView'
 import styles from './ServiceCard.module.css'
 
 /**
  * ServiceCard — картка послуги.
- * Відео стартує при наведенні мишкою; клік по картці відкриває модалку (onOpen).
+ * Фото плавно наближається при наведенні; клік по картці відкриває модалку (onOpen).
  *
- * @param {{title, desc, price, video, poster?}} service
+ * @param {{title, desc, price, photo?, tone?}} service
  * @param {() => void} onOpen
  */
 export default function ServiceCard({ service, onOpen }) {
-  const videoRef = useRef(null)
-  const [playing, setPlaying] = useState(false)
   const [cardRef, inView] = useInView()
-
-  const handleEnter = () => {
-    const v = videoRef.current
-    if (!v) return
-    v.play()
-      .then(() => setPlaying(true))
-      .catch(() => {})
-  }
-
-  const handleLeave = () => {
-    const v = videoRef.current
-    if (!v) return
-    v.pause()
-    v.currentTime = 0
-    setPlaying(false)
-  }
 
   return (
     <button
       ref={cardRef}
       className={`${styles.card} ${inView ? styles.inView : ''}`}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
       onClick={onOpen}
       aria-label={`Детальніше про «${service.title}»`}
     >
       <div className={styles.media}>
-        <video
-          ref={videoRef}
-          className={styles.video}
-          src={service.video}
-          poster={service.poster}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
-        <div className={`${styles.playHint} ${playing ? styles.hidden : ''}`}>
-          <PlayIcon />
-          <span>переглянути</span>
-        </div>
+        <ServicePhoto service={service} className={styles.photo} />
+        <span className={styles.shade} aria-hidden="true" />
         <span className={styles.price}>{service.price}</span>
       </div>
 

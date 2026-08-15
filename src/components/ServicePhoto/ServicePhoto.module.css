@@ -1,0 +1,25 @@
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Плашка-фолбек, поки немає реального фото */
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: color-mix(in srgb, var(--tone) 55%, transparent);
+  background:
+    radial-gradient(75% 60% at 65% 25%, color-mix(in srgb, var(--tone) 22%, transparent), transparent 70%),
+    linear-gradient(150deg, var(--color-surface-hover) 0%, var(--color-bg-soft) 60%, var(--color-bg) 100%);
+}
+.fallback svg {
+  width: 22%;
+  max-width: 76px;
+  height: auto;
+  opacity: 0.9;
+}

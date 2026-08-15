@@ -9,7 +9,8 @@ import {
 } from '@/components/icons'
 import styles from './OrderModal.module.css'
 
-/** Варіанти зв'язку — беруться з config/site.js */
+/** Варіанти зв'язку — беруться з config/site.js.
+    Канал без посилання (порожній рядок) не показується. */
 const CHANNELS = [
   {
     key: 'telegram',
@@ -20,14 +21,6 @@ const CHANNELS = [
     accent: '#2aabee',
   },
   {
-    key: 'instagram',
-    label: 'Instagram',
-    hint: 'Напишіть у Direct',
-    icon: <InstagramIcon />,
-    href: SOCIAL.instagram,
-    accent: '#d6249f',
-  },
-  {
     key: 'facebook',
     label: 'Facebook',
     hint: 'Messenger або сторінка',
@@ -35,7 +28,15 @@ const CHANNELS = [
     href: SOCIAL.facebook,
     accent: '#1877f2',
   },
-]
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    hint: 'Напишіть у Direct',
+    icon: <InstagramIcon />,
+    href: SOCIAL.instagram,
+    accent: '#d6249f',
+  },
+].filter((c) => c.href)
 
 /** Модалка вибору способу замовлення (замість форми). */
 export default function OrderModal({ isOpen, onClose }) {
@@ -45,7 +46,7 @@ export default function OrderModal({ isOpen, onClose }) {
         <p className="eyebrow">Замовити чистку</p>
         <h2 className={styles.title}>Як вам зручно звʼязатися?</h2>
         <p className={styles.subtitle}>
-          Оберіть месенджер — напишемо, підберемо час і порахуємо вартість.
+          {CONTACTS.note}. Оберіть месенджер — підберемо час і порахуємо вартість.
         </p>
       </div>
 
@@ -76,8 +77,16 @@ export default function OrderModal({ isOpen, onClose }) {
       </div>
 
       <a href={`tel:${CONTACTS.phone}`} className={styles.phone}>
-        <PhoneIcon size={18} />
-        Зателефонувати: {CONTACTS.phoneDisplay}
+        <span className={styles.phoneIcon}>
+          <PhoneIcon size={20} />
+        </span>
+        <span className={styles.phoneText}>
+          <span className={styles.phoneLabel}>Зателефонувати</span>
+          <span className={styles.phoneNumber}>{CONTACTS.phoneDisplay}</span>
+        </span>
+        <span className={styles.channelArrow}>
+          <ArrowRightIcon />
+        </span>
       </a>
     </Modal>
   )

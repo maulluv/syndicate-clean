@@ -55,3 +55,25 @@
   --mark-size: 36px;
   --name-size: 1.6rem;
 }
+
+/* Мобільний: назва в один рядок + текст по центру, на рівні з бургером */
+@media (max-width: 560px) {
+  .logo {
+    gap: 10px;
+  }
+  .md {
+    --mark-size: 32px;
+    --name-size: 1.15rem;
+  }
+  .text {
+    text-align: center;
+  }
+  .name {
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+  }
+  .tagline {
+    letter-spacing: 0.22em;
+    margin-top: 2px;
+  }
+}

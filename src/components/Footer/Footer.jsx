@@ -12,10 +12,12 @@ import {
 } from '@/components/icons'
 import styles from './Footer.module.css'
 
+/* Іконка показується завжди. Поки в config/site.js немає посилання —
+   вона неактивна (без кліку); впиши URL у SOCIAL — і вона одразу заживе. */
 const SOCIALS = [
-  { label: 'Instagram', href: SOCIAL.instagram, icon: <InstagramIcon size={18} /> },
   { label: 'Telegram', href: SOCIAL.telegram, icon: <TelegramIcon size={18} /> },
   { label: 'Facebook', href: SOCIAL.facebook, icon: <FacebookIcon size={18} /> },
+  { label: 'Instagram', href: SOCIAL.instagram, icon: <InstagramIcon size={18} /> },
 ]
 
 export default function Footer() {
@@ -45,22 +47,33 @@ export default function Footer() {
           <div className={styles.brandCol}>
             <Logo />
             <p className={styles.brandText}>
-              Професійна хімчистка меблів у Києві та області. Глибоке та
-              делікатне чищення з безпечною хімією та турботою про кожну деталь.
+              Професійна хімчистка меблів у Києві. Глибоке та делікатне
+              чищення з безпечною хімією та турботою про кожну деталь.
             </p>
             <div className={styles.socials}>
-              {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.social}
-                  aria-label={s.label}
-                >
-                  {s.icon}
-                </a>
-              ))}
+              {SOCIALS.map((s) =>
+                s.href ? (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.social}
+                    aria-label={s.label}
+                  >
+                    {s.icon}
+                  </a>
+                ) : (
+                  <span
+                    key={s.label}
+                    className={`${styles.social} ${styles.socialSoon}`}
+                    aria-label={`${s.label} — скоро`}
+                    title="Скоро"
+                  >
+                    {s.icon}
+                  </span>
+                )
+              )}
             </div>
           </div>
 
@@ -98,13 +111,9 @@ export default function Footer() {
                   {CONTACTS.phoneDisplay}
                 </a>
               </li>
-              <li>
-                <a href={`mailto:${CONTACTS.email}`} className={styles.link}>
-                  {CONTACTS.email}
-                </a>
-              </li>
               <li className={styles.listItem}>{CONTACTS.city}</li>
               <li className={styles.listItem}>{CONTACTS.hours}</li>
+              <li className={styles.listItem}>{CONTACTS.note}</li>
             </ul>
           </div>
         </div>

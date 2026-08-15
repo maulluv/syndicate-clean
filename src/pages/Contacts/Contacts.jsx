@@ -5,16 +5,16 @@ import {
   TelegramIcon,
   FacebookIcon,
   PhoneIcon,
-  MailIcon,
   ArrowRightIcon,
 } from '@/components/icons'
 import styles from './Contacts.module.css'
 
+/* Канал без посилання в config/site.js не показуємо */
 const CHANNELS = [
   { key: 'telegram', label: 'Telegram', hint: 'Написати в чат', icon: <TelegramIcon />, href: SOCIAL.telegram, accent: '#2aabee' },
-  { key: 'instagram', label: 'Instagram', hint: 'Написати в Direct', icon: <InstagramIcon />, href: SOCIAL.instagram, accent: '#d6249f' },
   { key: 'facebook', label: 'Facebook', hint: 'Messenger', icon: <FacebookIcon />, href: SOCIAL.facebook, accent: '#1877f2' },
-]
+  { key: 'instagram', label: 'Instagram', hint: 'Написати в Direct', icon: <InstagramIcon />, href: SOCIAL.instagram, accent: '#d6249f' },
+].filter((c) => c.href)
 
 export default function Contacts() {
   return (
@@ -37,16 +37,14 @@ export default function Contacts() {
                 {CONTACTS.phoneDisplay}
               </a>
             </ContactItem>
-            <ContactItem icon={<MailIcon size={18} />} label="Пошта">
-              <a href={`mailto:${CONTACTS.email}`} className={styles.value}>
-                {CONTACTS.email}
-              </a>
-            </ContactItem>
             <ContactItem label="Місто">
               <span className={styles.value}>{CONTACTS.city}</span>
             </ContactItem>
             <ContactItem label="Графік">
               <span className={styles.value}>{CONTACTS.hours}</span>
+            </ContactItem>
+            <ContactItem label="Оцінка вартості">
+              <span className={styles.value}>{CONTACTS.note}</span>
             </ContactItem>
           </div>
 

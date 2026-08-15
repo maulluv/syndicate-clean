@@ -88,14 +88,77 @@
   background: var(--color-border);
 }
 
+/* Телефон — такий самий рядок, як канали вище, тільки в золоті бренду,
+   а не в кольорі месенджера. Раніше це був суцільний текст в один рядок,
+   і на вузькому екрані він ламався просто посеред номера. */
 .phone {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
-  color: var(--color-text-muted);
-  font-size: var(--fs-sm);
-  transition: color var(--transition);
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
 }
 .phone:hover {
-  color: var(--color-gold-soft);
+  border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+}
+
+.phoneIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  color: #17140d;
+  background: var(--color-gold);
+}
+
+.phoneText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.phoneLabel {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
+.phoneNumber {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--color-text);
+  /* Номер не розриваємо — читається як одне ціле */
+  white-space: nowrap;
+}
+.phone:hover .channelArrow {
+  color: var(--color-text);
+  transform: translateX(4px);
+}
+
+/* На вузькому екрані номер із nowrap не влазить поруч з іконкою і стрілкою.
+   Стрілку прибираємо (рядок і без неї очевидно клікабельний), іконку та
+   відступи стискаємо, а сам номер трохи зменшуємо — але не розриваємо. */
+@media (max-width: 380px) {
+  .phone {
+    gap: 12px;
+    padding: 12px 14px;
+  }
+  .phoneIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .phone .channelArrow {
+    display: none;
+  }
+  .phoneNumber {
+    font-size: clamp(0.85rem, 4.4vw, 1rem);
+  }
 }
