@@ -6,5 +6,16 @@
     </linearGradient>
   </defs>
   <rect width="40" height="40" rx="9" fill="#0e0e10" />
-  <path d="M20 7 Q20 20 33 20 Q20 20 20 33 Q20 20 7 20 Q20 20 20 7 Z" fill="url(#g)" />
+  <g transform="translate(4 4) scale(0.8)">
+    <!-- Огранка діаманта -->
+    <path d="M10 6 H30 L37 15 L20 36 L3 15 Z" fill="url(#g)" />
+    <!-- Внутрішні грані -->
+    <path
+      d="M10 6 L14.5 15 H3 M30 6 L25.5 15 H37 M14.5 15 H25.5 M14.5 15 L20 36 M25.5 15 L20 36"
+      stroke="#0e0e10"
+      stroke-width="1.1"
+      stroke-linejoin="round"
+      opacity="0.35"
+    />
+  </g>
 </svg>

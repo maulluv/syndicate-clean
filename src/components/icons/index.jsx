@@ -54,14 +54,6 @@ export function CloseIcon({ size = 22 }) {
   )
 }
 
-export function PlayIcon({ size = 20 }) {
-  return (
-    <svg {...base(size)} fill="currentColor">
-      <path d="M8 5v14l11-7L8 5Z" />
-    </svg>
-  )
-}
-
 export function PhoneIcon({ size = 22 }) {
   return (
     <svg {...base(size)} stroke="currentColor" strokeWidth="1.6">
@@ -70,11 +62,11 @@ export function PhoneIcon({ size = 22 }) {
   )
 }
 
-export function MailIcon({ size = 22 }) {
+export function CheckIcon({ size = 20 }) {
   return (
-    <svg {...base(size)} stroke="currentColor" strokeWidth="1.6">
-      <rect x="3" y="5" width="18" height="14" rx="3" />
-      <path d="m4 7 8 5 8-5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">
+      <path d="m4 12.5 5 5 11-11" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
+

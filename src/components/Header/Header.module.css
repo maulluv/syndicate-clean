@@ -74,6 +74,16 @@
 .link:hover {
   color: var(--color-text);
 }
+
+/* Поки шапка прозора, вона лежить просто на фото героя — а воно світле.
+   Тримаємо пункти яскравими й додаємо мʼяку тінь. Після скролу вмикається
+   скляний фон і це вже не потрібно. */
+.header:not(.scrolled) {
+  text-shadow: 0 1px 12px rgba(10, 8, 5, 0.8);
+}
+.header:not(.scrolled) .link {
+  color: var(--color-text);
+}
 .link.active {
   color: var(--color-gold-soft);
 }
