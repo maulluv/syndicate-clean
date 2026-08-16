@@ -24,7 +24,7 @@
     transform: translateY(-4px) rotate(-3deg) scale(1.04);
   }
   .card:hover .more {
-    color: var(--color-gold-soft);
+    color: var(--color-gold-ink);
     letter-spacing: 0.02em;
   }
 }
@@ -128,7 +128,7 @@
   font-size: var(--fs-eyebrow);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
 }
 .title {
   font-size: var(--fs-title-card);

@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Container from '@/components/Container'
 import Button from '@/components/Button'
 import { useOrderModal } from '@/context/OrderModalContext'
-import { INTRO, CONTACTS } from '@/config/site'
-import { ArrowRightIcon, CheckIcon } from '@/components/icons'
+import { INTRO, CHEMISTRY_INTRO, CONTACTS } from '@/config/site'
+import { ArrowRightIcon, CheckIcon, ShieldIcon } from '@/components/icons'
 import styles from './Home.module.css'
 
 export default function Home() {
@@ -43,7 +44,40 @@ export default function Home() {
       </section>
 
       <IntroSection openOrder={openOrder} />
+      <ChemistrySection />
     </>
+  )
+}
+
+/** Блок про безпеку хімії — текст у config/site.js (CHEMISTRY_INTRO). */
+function ChemistrySection() {
+  return (
+    <section className={styles.chem}>
+      <Container>
+        <header className={styles.chemHead}>
+          <p className="eyebrow">{CHEMISTRY_INTRO.eyebrow}</p>
+          <h2 className={styles.chemTitle}>{CHEMISTRY_INTRO.title}</h2>
+          <p className={styles.chemLead}>{CHEMISTRY_INTRO.lead}</p>
+        </header>
+
+        <div className={styles.chemGrid}>
+          {CHEMISTRY_INTRO.points.map((p) => (
+            <div key={p.title} className={styles.chemCard}>
+              <span className={styles.chemIcon}>
+                <ShieldIcon size={20} />
+              </span>
+              <h3 className={styles.chemCardTitle}>{p.title}</h3>
+              <p className={styles.chemCardDesc}>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <Link to="/himiya" className={styles.chemLink}>
+          {CHEMISTRY_INTRO.linkText}
+          <ArrowRightIcon />
+        </Link>
+      </Container>
+    </section>
   )
 }
 

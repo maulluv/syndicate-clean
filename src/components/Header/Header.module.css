@@ -17,11 +17,11 @@
 
 /* Стан після скролу — з'являється скляний фон */
 .scrolled {
-  background: rgba(14, 14, 16, 0.72);
+  background: rgba(250, 247, 242, 0.82);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border-bottom-color: var(--color-border);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 30px rgba(69, 52, 31, 0.1);
 }
 
 /* Коли відкрите мобільне меню — робимо смугу хедера суцільною
@@ -75,17 +75,17 @@
   color: var(--color-text);
 }
 
-/* Поки шапка прозора, вона лежить просто на фото героя — а воно світле.
-   Тримаємо пункти яскравими й додаємо мʼяку тінь. Після скролу вмикається
-   скляний фон і це вже не потрібно. */
+/* Поки шапка прозора, вона лежить просто на фото героя. Текст темний, тож
+   підсвічуємо його світлою тінню — вона гасить дрібні деталі кадру під
+   літерами. Після скролу вмикається скляний фон і це вже не потрібно. */
 .header:not(.scrolled) {
-  text-shadow: 0 1px 12px rgba(10, 8, 5, 0.8);
+  text-shadow: 0 1px 12px rgba(250, 247, 242, 0.9);
 }
 .header:not(.scrolled) .link {
   color: var(--color-text);
 }
 .link.active {
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
 }
 .link.active::after {
   transform: scaleX(1);
@@ -162,7 +162,7 @@
 }
 .mobileLink:hover,
 .mobileLink.active {
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
   padding-left: 10px;
 }
 .mobileCta {

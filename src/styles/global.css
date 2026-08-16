@@ -65,10 +65,10 @@ ol {
   list-style: none;
 }
 
-/* Selection */
+/* Selection — на золотій заливці читається темний текст, не світлий */
 ::selection {
   background: var(--color-gold);
-  color: var(--color-bg);
+  color: var(--color-text);
 }
 
 /* Custom scrollbar */
@@ -79,11 +79,11 @@ ol {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-hover);
+  background: rgba(69, 52, 31, 0.22);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold-dim);
+  background: rgba(69, 52, 31, 0.36);
 }
 
 /* Reusable helper: section eyebrow label */
@@ -94,5 +94,5 @@ ol {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
 }
