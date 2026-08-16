@@ -14,10 +14,9 @@
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(70% 55% at 72% 28%, rgba(233, 196, 130, 0.28), transparent 62%),
-    radial-gradient(90% 70% at 78% 34%, rgba(150, 104, 52, 0.35), transparent 70%),
-    radial-gradient(60% 50% at 18% 82%, rgba(90, 70, 40, 0.28), transparent 65%),
-    linear-gradient(155deg, #1c1810 0%, #12100c 45%, #0b0b0d 100%);
+    radial-gradient(70% 55% at 72% 28%, rgba(233, 213, 178, 0.55), transparent 62%),
+    radial-gradient(60% 50% at 18% 82%, rgba(195, 181, 165, 0.4), transparent 65%),
+    linear-gradient(155deg, #f7f2e9 0%, #efe7db 45%, #e6dccd 100%);
 }
 .photo {
   position: absolute;
@@ -27,24 +26,24 @@
   object-fit: cover;
   object-position: center;
 }
-/* Затемнення підібране під світле фото: колір теплий (#14110c), а не чорний,
-   інакше беж під ним сіріє. Зліва щільніше — там лягає заголовок, справа
-   лишаємо вікно світлим, щоб кадр дихав. */
+/* Не затемнення, а світла вуаль: текст тут темний, тож фото треба не гасити,
+   а навпаки — висвітлювати під заголовком. Колір теплий (#faf7f2), той самий,
+   що фон сторінки, тому герой перетікає в контент без шва.
+   Зліва щільніше — там лягає текст; праворуч вікно лишається як є. */
 .overlay {
   position: absolute;
   inset: 0;
   background:
-    /* Шапка — щоб лого й пункти меню читались на світлій стіні */
-    linear-gradient(to bottom, rgba(16, 13, 9, 0.8) 0%, transparent 100%) top / 100% 20% no-repeat,
     linear-gradient(
       90deg,
-      rgba(20, 17, 12, 0.86) 0%,
-      rgba(20, 17, 12, 0.8) 30%,
-      rgba(20, 17, 12, 0.62) 46%,
-      rgba(20, 17, 12, 0.22) 72%,
-      rgba(20, 17, 12, 0.06) 100%
+      rgba(250, 247, 242, 0.94) 0%,
+      rgba(250, 247, 242, 0.88) 28%,
+      rgba(250, 247, 242, 0.62) 46%,
+      rgba(250, 247, 242, 0.16) 72%,
+      rgba(250, 247, 242, 0) 100%
     ),
-    linear-gradient(to top, rgba(16, 14, 10, 0.72) 0%, transparent 42%);
+    /* Знизу — плавний перехід у фон сторінки */
+    linear-gradient(to top, var(--color-bg) 0%, rgba(250, 247, 242, 0) 30%);
 }
 
 /* ===== Контент ===== */
@@ -68,7 +67,7 @@
   font-style: italic;
   font-weight: 500;
   line-height: 0.9;
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
   animation: fadeUp 0.8s var(--ease) 0.1s both;
 }
 .titleBlock {
@@ -84,8 +83,7 @@
 .subtitle {
   max-width: 46ch;
   font-size: var(--fs-lead);
-  /* Світліше за звичайний muted — лід лежить на фото, а не на суцільному тлі */
-  color: #d8d3c8;
+  color: var(--color-text-muted);
   margin-bottom: 40px;
   animation: fadeUp 0.8s var(--ease) 0.3s both;
 }
@@ -112,8 +110,8 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  /* Індикатор падає на світлу частину фото — тінь тримає його читабельним */
-  text-shadow: 0 1px 10px rgba(12, 10, 7, 0.85);
+  /* Індикатор падає на фото — світла тінь відділяє його від деталей кадру */
+  text-shadow: 0 1px 10px rgba(250, 247, 242, 0.9);
 }
 .scrollLine {
   width: 1px;
@@ -161,7 +159,7 @@
   font-family: var(--font-serif);
   font-size: var(--fs-title-sm);
   font-style: italic;
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
 }
 
 /* Права колонка */
@@ -194,7 +192,7 @@
   height: 34px;
   flex-shrink: 0;
   border-radius: var(--radius-full);
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
   background: var(--color-gold-dim);
 }
 .outro {
@@ -215,7 +213,7 @@
   font-size: var(--fs-eyebrow);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
 }
 
 .closing {
@@ -226,7 +224,83 @@
   font-family: var(--font-serif);
   font-size: var(--fs-title-modal);
   font-style: italic;
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
+}
+
+/* ===== Блок про безпеку хімії ===== */
+.chem {
+  padding: clamp(64px, 10vw, 110px) 0;
+  background: var(--color-bg-soft);
+  border-top: 1px solid var(--color-border);
+}
+.chemHead {
+  max-width: 62ch;
+  margin-bottom: clamp(32px, 5vw, 52px);
+}
+.chemTitle {
+  font-size: var(--fs-title-modal);
+  line-height: 1.25;
+  margin: 18px 0 20px;
+  max-width: 22ch;
+}
+.chemLead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+}
+
+.chemGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.5vw, 24px);
+}
+.chemCard {
+  padding: clamp(22px, 3vw, 30px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.chemIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-full);
+  color: var(--color-gold-ink);
+  background: var(--color-gold-dim);
+}
+.chemCardTitle {
+  font-size: var(--fs-title-sm);
+  margin-bottom: 10px;
+}
+.chemCardDesc {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.chemLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(28px, 4vw, 40px);
+  color: var(--color-gold-ink);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-gold-dim);
+  padding-bottom: 3px;
+  transition: gap var(--transition), border-color var(--transition);
+}
+.chemLink:hover {
+  gap: 16px;
+  border-bottom-color: var(--color-gold);
+}
+
+@media (max-width: 860px) {
+  .chemGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @keyframes fadeUp {
@@ -252,9 +326,9 @@
   }
 }
 
-/* Вузький екран: колонка тексту займає майже всю ширину, тож бічне затемнення
-   вже не рятує — переходимо на затемнення знизу вгору, а текст притискаємо
-   донизу. Верх кадру лишається світлим, там видно кімнату з диваном. */
+/* Вузький екран: колонка тексту займає майже всю ширину, тож бічна вуаль
+   вже не рятує — переходимо на вуаль знизу вгору, а текст притискаємо донизу.
+   Верх кадру лишається чистим, там видно кімнату з диваном. */
 @media (max-width: 900px) {
   .introInner {
     grid-template-columns: 1fr;
@@ -274,15 +348,13 @@
   }
   .overlay {
     background:
-      /* Верхня шапка — щоб лого й бургер не губились на світлій стіні */
-      linear-gradient(to bottom, rgba(16, 13, 9, 0.72) 0%, transparent 100%) top / 100% 22% no-repeat,
       linear-gradient(
         to top,
-        rgba(16, 13, 9, 0.93) 0%,
-        rgba(16, 13, 9, 0.9) 36%,
-        rgba(16, 13, 9, 0.74) 54%,
-        rgba(16, 13, 9, 0.3) 76%,
-        rgba(16, 13, 9, 0.08) 100%
+        rgba(250, 247, 242, 0.97) 0%,
+        rgba(250, 247, 242, 0.94) 36%,
+        rgba(250, 247, 242, 0.78) 54%,
+        rgba(250, 247, 242, 0.28) 76%,
+        rgba(250, 247, 242, 0) 100%
       );
   }
 }

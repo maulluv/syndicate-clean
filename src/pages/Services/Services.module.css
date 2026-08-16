@@ -66,7 +66,7 @@
 .priceGroup {
   font-family: var(--font-serif);
   font-size: var(--fs-title-modal);
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
   margin-bottom: 20px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-border);
@@ -92,7 +92,7 @@
   transform: translateY(-4px);
 }
 .priceValue {
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
   font-weight: 500;
   white-space: nowrap;
 }

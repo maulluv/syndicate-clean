@@ -51,10 +51,10 @@
   left: 12px;
   padding: 5px 12px;
   border-radius: var(--radius-full);
-  background: rgba(14, 14, 16, 0.78);
+  background: rgba(20, 17, 12, 0.78);
   backdrop-filter: blur(4px);
-  border: 1px solid var(--color-border-strong);
-  color: var(--color-text);
+  border: 1px solid rgba(246, 242, 234, 0.28);
+  color: var(--color-text-on-photo);
   font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -63,8 +63,8 @@
 .tagAfter {
   left: auto;
   right: 12px;
-  color: var(--color-gold-soft);
-  border-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
+  color: var(--color-gold-on-photo);
+  border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
 }
 
 /* ===== Інфо ===== */
@@ -102,6 +102,6 @@
   transition: color var(--transition), letter-spacing var(--transition);
 }
 .card:hover .more {
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
   letter-spacing: 0.02em;
 }

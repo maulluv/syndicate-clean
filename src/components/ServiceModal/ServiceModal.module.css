@@ -25,7 +25,7 @@
   background: rgba(14, 14, 16, 0.82);
   backdrop-filter: blur(6px);
   border: 1px solid var(--color-border-strong);
-  color: var(--color-gold-soft);
+  color: var(--color-gold-on-photo);
   font-size: var(--fs-sm);
   font-weight: 500;
 }

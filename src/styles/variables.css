@@ -1,20 +1,31 @@
 :root {
-  /* ===== Colors ===== */
-  --color-bg: #0e0e10;
-  --color-bg-soft: #141416;
-  --color-surface: #1a1a1d;
-  --color-surface-hover: #222226;
+  /* ===== Colors =====
+     Світла тепла палітра, знята піпеткою з фото на головній
+     (design/hero/source.png): стіна #e2dbd1, диван #c3b5a5, дерево #45341f.
+     Тому беж тут теплий, а не сірий — сайт і кадр звучать в один тон. */
+  --color-bg: #faf7f2;          /* трохи світліше за стіну в кадрі */
+  --color-bg-soft: #f2ece2;     /* чергування секцій — тон самої стіни */
+  --color-surface: #ffffff;     /* картки: підняті над фоном */
+  --color-surface-hover: #f7f1e8;
 
-  --color-text: #f4efe6;
-  --color-text-muted: #a49f95;
-  --color-text-dim: #6c6860;
+  --color-text: #2b2318;        /* з найтемнішого дерева в кадрі */
+  --color-text-muted: #6b6053;
+  --color-text-dim: #726a5e;
 
+  /* Золото має дві ролі, і це різні кольори.
+     --color-gold      — заливка (кнопки, лінії): світле, текст на ньому темний.
+     --color-gold-ink  — золото як ТЕКСТ на світлому фоні: темніше, інакше не читається.
+     --color-gold-on-photo — золото як текст поверх фото (цінники, герой): світле. */
   --color-gold: #c9a86a;
-  --color-gold-soft: #d9c191;
-  --color-gold-dim: rgba(201, 168, 106, 0.15);
+  --color-gold-ink: #7f6127;
+  --color-gold-on-photo: #dcc59a;
+  --color-gold-dim: rgba(201, 168, 106, 0.18);
 
-  --color-border: rgba(244, 239, 230, 0.08);
-  --color-border-strong: rgba(244, 239, 230, 0.16);
+  /* Світлий текст поверх фото — там, де під ним затемнення, а не сторінка */
+  --color-text-on-photo: #f6f2ea;
+
+  --color-border: rgba(69, 52, 31, 0.14);
+  --color-border-strong: rgba(69, 52, 31, 0.28);
 
   /* ===== Typography ===== */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -50,9 +61,11 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --transition: 0.35s var(--ease);
 
-  /* ===== Shadows ===== */
-  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --shadow-gold: 0 8px 30px rgba(201, 168, 106, 0.25);
+  /* ===== Shadows =====
+     На світлому фоні чорна тінь виглядає брудно — беремо тон дерева з кадру. */
+  --shadow-sm: 0 2px 10px rgba(69, 52, 31, 0.06);
+  --shadow-md: 0 14px 40px rgba(69, 52, 31, 0.13);
+  --shadow-gold: 0 8px 26px rgba(160, 125, 60, 0.3);
 }
 
 /* ===== Компактніші токени на телефоні ===== */

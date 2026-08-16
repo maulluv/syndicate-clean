@@ -54,7 +54,7 @@
   transition: color var(--transition);
 }
 a.value:hover {
-  color: var(--color-gold-soft);
+  color: var(--color-gold-ink);
 }
 
 /* ===== Месенджери ===== */

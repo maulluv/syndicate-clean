@@ -9,15 +9,18 @@
 export default function SofaShot({ state = 'after', tone = '#c9a86a' }) {
   const before = state === 'before'
 
-  const body = before ? '#4c4842' : '#d8d2c6'
-  const bodyDark = before ? '#3d3936' : '#c3bcae'
-  const cushion = before ? '#57524b' : '#e7e1d6'
-  const pillow = before ? '#615b53' : tone
+  /* «До» — не темрява, а засірена тканина: сайт світлий, тож чорний прямокутник
+     читався б як діра, а не як брудний диван. Різницю тримаємо на насиченості
+     й плямах, а не на яскравості. */
+  const body = before ? '#9c9285' : '#d8d2c6'
+  const bodyDark = before ? '#8b8175' : '#c3bcae'
+  const cushion = before ? '#ada396' : '#e7e1d6'
+  const pillow = before ? '#968b7d' : tone
 
   return (
     <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       {/* Фон */}
-      <rect width="240" height="160" fill={before ? '#2a2723' : '#f2ece0'} />
+      <rect width="240" height="160" fill={before ? '#cdc5b7' : '#f2ece0'} />
 
       {/* Спинка */}
       <rect x="34" y="34" width="172" height="58" rx="16" fill={body} />
@@ -37,12 +40,12 @@ export default function SofaShot({ state = 'after', tone = '#c9a86a' }) {
       <rect x="126" y="82" width="58" height="30" rx="9" fill={cushion} />
 
       {/* Ніжки */}
-      <rect x="46" y="122" width="9" height="16" rx="2" fill={before ? '#2f2b26' : '#8a7f6d'} />
-      <rect x="185" y="122" width="9" height="16" rx="2" fill={before ? '#2f2b26' : '#8a7f6d'} />
+      <rect x="46" y="122" width="9" height="16" rx="2" fill={before ? '#6f6659' : '#8a7f6d'} />
+      <rect x="185" y="122" width="9" height="16" rx="2" fill={before ? '#6f6659' : '#8a7f6d'} />
 
       {/* Плями (тільки «до») */}
       {before && (
-        <g fill="#211d19">
+        <g fill="#5a4f42">
           <ellipse cx="82" cy="98" rx="13" ry="8" opacity="0.75" />
           <ellipse cx="150" cy="95" rx="9" ry="6" opacity="0.6" />
           <ellipse cx="120" cy="104" rx="7" ry="4" opacity="0.5" />

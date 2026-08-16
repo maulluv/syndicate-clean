@@ -70,3 +70,16 @@ export function CheckIcon({ size = 20 }) {
   )
 }
 
+/** Щит із галочкою — безпека засобів */
+export function ShieldIcon({ size = 20 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.6">
+      <path
+        d="M12 3 5 6v5.5c0 4.2 2.9 7.6 7 9.5 4.1-1.9 7-5.3 7-9.5V6l-7-3Z"
+        strokeLinejoin="round"
+      />
+      <path d="m9 12 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
