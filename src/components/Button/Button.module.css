@@ -46,24 +46,44 @@
 
 /* ===== Variants ===== */
 
-/* Primary — золота заливка */
+/* Primary — глибока еспресо-заливка.
+   Чому не золото: на кремовому фоні золота пляма губиться й мутніє, а
+   діагональний градієнт із двох різних тонів давав оливковий відлив.
+   Темна кнопка на світлій сторінці — максимальний контраст і найспокійніший
+   вигляд, а золото лишається тонким акцентом (лого, підписи, цінники).
+   Градієнт вертикальний і майже непомітний — читається як мʼяке світло згори,
+   а не як заливка двома кольорами. */
 .primary {
-  background: linear-gradient(135deg, var(--color-gold-ink), var(--color-gold));
-  color: #17140d;
+  background: linear-gradient(180deg, #3b3020 0%, #29200f 100%);
+  color: #f7f2e7;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 235, 0.1),
+    0 6px 18px rgba(69, 52, 31, 0.18);
 }
 .primary:hover {
-  box-shadow: var(--shadow-gold);
+  background: linear-gradient(180deg, #473a26 0%, #332815 100%);
+  /* На ховері зсередини проступає золотий волосок — звʼязок із брендом */
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 168, 106, 0.45),
+    0 12px 30px rgba(69, 52, 31, 0.28);
   transform: translateY(-2px);
 }
 
-/* Outline — прозора з золотою рамкою */
+/* Outline — світла, у парі з темною primary.
+   Лежить і на фото героя, і на сторінках, тож заливка ледь помітна й
+   напівпрозора: на кремовому тлі зливається, на фото трохи підсвічує себе. */
 .outline {
-  background: transparent;
+  background: rgba(255, 253, 249, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: var(--color-text);
   box-shadow: inset 0 0 0 1px var(--color-border-strong);
 }
 .outline:hover {
-  box-shadow: inset 0 0 0 1px var(--color-gold);
+  background: rgba(255, 253, 249, 0.9);
+  box-shadow:
+    inset 0 0 0 1px var(--color-gold),
+    0 8px 22px rgba(69, 52, 31, 0.12);
   color: var(--color-gold-ink);
   transform: translateY(-2px);
 }
