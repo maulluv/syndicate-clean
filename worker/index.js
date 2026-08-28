@@ -1,4 +1,5 @@
 import { SITE_URL } from '../src/config/site.js'
+import { handleOrder } from './order.js'
 
 /**
  * Тонкий шар перед статичними файлами сайту.
@@ -14,6 +15,8 @@ import { SITE_URL } from '../src/config/site.js'
  *
  *   2. Заборона індексації на всіх адресах, крім основної. Сайт доступний
  *      ще й на технічних адресах Cloudflare — у пошуку їм робити нічого.
+ *
+ *   3. Приймання заявок з форми на /api/order — див. order.js.
  *
  * Адреса береться з SITE_URL у config/site.js, тобто з того самого місця,
  * що й canonical. Зміниться домен — цей код підхопить його сам.
@@ -33,6 +36,12 @@ export default {
         url.hostname = CANONICAL_HOST
         url.protocol = 'https:'
         return Response.redirect(url.toString(), 301)
+      }
+
+      // Заявка з форми. Перевіряємо до звернення до файлів: такої сторінки
+      // на сайті немає, тож інакше запит впав би у 404.
+      if (url.pathname === '/api/order') {
+        return handleOrder(request, env)
       }
 
       const response = await env.ASSETS.fetch(request)

@@ -1,19 +1,29 @@
 import Modal from '@/components/Modal'
+import OrderForm from '@/components/OrderForm'
 import { CONTACTS } from '@/config/site'
-import { CONTACT_CHANNELS, channelHint } from '@/config/channels'
+import { CONTACT_CHANNELS } from '@/config/channels'
 import { PhoneIcon, ArrowRightIcon } from '@/components/icons'
 import styles from './OrderModal.module.css'
 
-/** Модалка вибору способу зв'язку.
-    За замовчуванням — «Замовити чистку» (кнопки CTA по сайту).
-    Через eyebrow/title/subtitle той самий список каналів
-    перевикористовується під інший контекст — напр. іконка телефону в хедері. */
+/**
+ * Модалка замовлення.
+ *
+ * Головний шлях — форма: людині досить лишити імʼя й телефон, не відкриваючи
+ * месенджер і не починаючи розмову. Раніше це був єдиний варіант, і частина
+ * відвідувачів на цьому кроці просто йшла.
+ *
+ * Месенджери лишились нижче, але компактним рядком: пʼять розгорнутих карток
+ * разом із формою робили вікно нескінченним.
+ *
+ * Через eyebrow/title/subtitle та сама модалка працює і як «Замовити чистку»,
+ * і як «Звʼязок» для іконки телефону в хедері.
+ */
 export default function OrderModal({
   isOpen,
   onClose,
   eyebrow = 'Замовити чистку',
-  title = 'Як вам зручно звʼязатися?',
-  subtitle = `${CONTACTS.note}. Оберіть месенджер — підберемо час і порахуємо вартість.`,
+  title = 'Залиште заявку',
+  subtitle = `${CONTACTS.note}. Передзвонимо, підберемо час і порахуємо вартість.`,
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -23,43 +33,41 @@ export default function OrderModal({
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
 
-      <div className={styles.channels}>
-        {CONTACT_CHANNELS.map((channel) => {
-          const { key, label, href, accent, Icon } = channel
+      <OrderForm onDone={onClose} />
 
-          const content = (
+      <div className={styles.divider}>
+        <span>або напишіть у месенджер</span>
+      </div>
+
+      <div className={styles.channels}>
+        {CONTACT_CHANNELS.map(({ key, label, href, accent, Icon }) => {
+          const inner = (
             <>
               <span className={styles.channelIcon}>
-                <Icon />
+                <Icon size={20} />
               </span>
-              <span className={styles.channelText}>
-                <span className={styles.channelLabel}>{label}</span>
-                <span className={styles.channelHint}>{channelHint(channel)}</span>
-              </span>
-              <span className={styles.channelArrow}>
-                <ArrowRightIcon />
-              </span>
+              <span className={styles.channelLabel}>{label}</span>
             </>
           )
 
-          // Канал без посилання лишається на місці, але не клікається:
-          // місце під нього вже видно, а натиснути ще нема куди.
+          // Канал без посилання лишається на місці, але не клікається —
+          // місце під нього видно, а натиснути ще нема куди.
           if (!href) {
             return (
               <span
                 key={key}
                 className={`${styles.channel} ${styles.channelSoon}`}
                 style={{ '--accent': accent }}
+                title="Скоро зʼявиться"
                 aria-disabled="true"
               >
-                {content}
+                {inner}
               </span>
             )
           }
 
-          // viber:// — не сайт, а команда відкрити застосунок. У новій вкладці
-          // вона лишила б по собі порожню сторінку, тому нове вікно тільки
-          // для звичайних http-посилань.
+          // viber:// відкриває застосунок, а не сайт — нове вікно лишило б
+          // по собі порожню вкладку.
           const opensSite = href.startsWith('http')
 
           return (
@@ -70,14 +78,10 @@ export default function OrderModal({
               className={styles.channel}
               style={{ '--accent': accent }}
             >
-              {content}
+              {inner}
             </a>
           )
         })}
-      </div>
-
-      <div className={styles.divider}>
-        <span>або</span>
       </div>
 
       <a href={`tel:${CONTACTS.phone}`} className={styles.phone}>
