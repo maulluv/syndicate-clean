@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Modal from '@/components/Modal'
 import OrderForm from '@/components/OrderForm'
 import { CONTACTS } from '@/config/site'
@@ -18,22 +19,68 @@ import styles from './OrderModal.module.css'
  * Через eyebrow/title/subtitle та сама модалка працює і як «Замовити чистку»,
  * і як «Звʼязок» для іконки телефону в хедері.
  */
+const TABS = [
+  { id: 'order', label: 'Заявка', title: 'Залиште заявку' },
+  { id: 'photo', label: 'Оцінка по фото', title: 'Оцінимо по фото' },
+]
+
+const SUBTITLES = {
+  order: `${CONTACTS.note}. Передзвонимо, підберемо час і порахуємо вартість.`,
+  photo: 'Надішліть кілька знімків — назвемо вартість, не виїжджаючи на місце.',
+}
+
 export default function OrderModal({
   isOpen,
   onClose,
+  initialTab,
+  calc,
   eyebrow = 'Замовити чистку',
-  title = 'Залиште заявку',
-  subtitle = `${CONTACTS.note}. Передзвонимо, підберемо час і порахуємо вартість.`,
+  title,
+  subtitle,
 }) {
+  const [tab, setTab] = useState(initialTab ?? 'order')
+
+  // Модалка живе в дереві постійно, тож без скидання вона відкрилась би
+  // на тій вкладці, де її закрили минулого разу.
+  useEffect(() => {
+    if (isOpen) setTab(initialTab ?? 'order')
+  }, [isOpen, initialTab])
+
+  const active = TABS.find((item) => item.id === tab) ?? TABS[0]
+
+  // Розрахунок із калькулятора стосується конкретного набору позицій —
+  // вкладка з фото тут була б не до речі.
+  const withTabs = !calc
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} sheet>
       <div className={styles.head}>
         <p className="eyebrow">{eyebrow}</p>
-        <h2 className={styles.title}>{title}</h2>
-        <p className={styles.subtitle}>{subtitle}</p>
+        <h2 className={styles.title}>{title ?? active.title}</h2>
+        <p className={styles.subtitle}>{subtitle ?? SUBTITLES[tab]}</p>
       </div>
 
-      <OrderForm onDone={onClose} />
+      {withTabs && (
+        <div className={styles.tabs} role="tablist">
+          {TABS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={tab === item.id}
+              className={`${styles.tab} ${tab === item.id ? styles.tabActive : ''}`}
+              onClick={() => setTab(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* key змушує форму створитись заново при зміні вкладки: інакше
+          в режимі оцінки лишились би поля, заповнені в звичайній заявці,
+          разом зі станом помилок. */}
+      <OrderForm key={tab} mode={tab} calc={calc} onDone={onClose} />
 
       <div className={styles.divider}>
         <span>або напишіть у месенджер</span>

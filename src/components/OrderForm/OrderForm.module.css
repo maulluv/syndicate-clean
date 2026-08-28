@@ -4,6 +4,40 @@
   gap: 16px;
 }
 
+/* Імʼя й телефон поруч: два коротких поля в стовпчик роблять форму
+   вищою, ніж вона є насправді, і вона здається довшою для заповнення. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Розрахунок із калькулятора — показуємо, щоб людина бачила, що саме
+   надсилає, і не мусила вірити на слово. */
+.calc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  background: var(--color-gold-dim);
+}
+.calcLabel {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+.calcBody {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  color: var(--color-text);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
 /* ===== Поле ===== */
 .field {
   display: flex;
@@ -168,5 +202,20 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Кнопка відправки трохи відсунута — щоб її не натиснули випадково,
+   тягнучись до останнього поля. */
+.submit {
+  margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+  /* На вузькому екрані два поля в рядок стають надто тісними —
+     номер телефону в них уже не читається. */
+  .row {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }

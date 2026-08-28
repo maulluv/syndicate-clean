@@ -3,6 +3,7 @@ import Container from '@/components/Container'
 import Button from '@/components/Button'
 import ServiceCard from '@/components/ServiceCard'
 import ServiceModal from '@/components/ServiceModal'
+import Calculator from '@/components/Calculator'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { ArrowRightIcon } from '@/components/icons'
 import { SERVICES, PRICING, FEATURES } from '@/config/site'
@@ -67,6 +68,13 @@ export default function Services() {
               Дізнатися вартість
             </Button>
           </div>
+        </div>
+
+        {/* ===== Калькулятор =====
+            Стоїть одразу під прайсом: людина щойно побачила ціни й тут
+            же може зібрати свій набір, не рахуючи в голові. */}
+        <div className={styles.calculator}>
+          <Calculator />
         </div>
 
         {/* ===== Переваги ===== */}

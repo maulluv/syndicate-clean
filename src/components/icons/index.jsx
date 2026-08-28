@@ -90,6 +90,43 @@ export function PhoneIcon({ size = 22 }) {
   )
 }
 
+export function CameraIcon({ size = 22 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.6">
+      <path
+        d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7a1 1 0 0 0 .83-.45l.94-1.4A1 1 0 0 1 9.8 3.7h4.4a1 1 0 0 1 .83.45l.94 1.4a1 1 0 0 0 .83.45h1.7A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-8Z"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12.5" r="3.4" />
+    </svg>
+  )
+}
+
+export function TrashIcon({ size = 16 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.7">
+      <path d="M4 6.5h16M9.5 6.5V4.8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1.7" strokeLinecap="round" />
+      <path d="M6.5 6.5 7.4 19a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function PlusIcon({ size = 20 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function MinusIcon({ size = 20 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">
+      <path d="M5 12h14" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 export function CheckIcon({ size = 20 }) {
   return (
     <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">

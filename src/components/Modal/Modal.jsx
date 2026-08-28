@@ -11,8 +11,12 @@ import styles from './Modal.module.css'
  * @param {() => void} onClose
  * @param {React.ReactNode} corner - додатковий вміст у кутку (напр. мініатюра)
  * @param {'md'|'lg'} size
+ * @param {boolean} sheet - на телефоні висувається знизу «шторкою» на весь
+ *   екран замість картки посередині. Вмикається окремо, бо всередині деяких
+ *   модалок є елементи, що навмисно виступають за межі (мініатюра в кутку),
+ *   і власна прокрутка їх би обрізала.
  */
-export default function Modal({ isOpen, onClose, children, corner, size = 'md' }) {
+export default function Modal({ isOpen, onClose, children, corner, size = 'md', sheet = false }) {
   // Закриття по Escape + блокування скролу сторінки
   useEffect(() => {
     if (!isOpen) return
@@ -28,9 +32,14 @@ export default function Modal({ isOpen, onClose, children, corner, size = 'md' }
   if (!isOpen) return null
 
   return createPortal(
-    <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true">
+    <div
+      className={`${styles.overlay} ${sheet ? styles.sheetOverlay : ''}`}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
       <div
-        className={`${styles.modal} ${styles[size]}`}
+        className={`${styles.modal} ${styles[size]} ${sheet ? styles.sheet : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button className={styles.close} onClick={onClose} aria-label="Закрити">

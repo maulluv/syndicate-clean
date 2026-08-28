@@ -106,3 +106,69 @@
     padding: 32px 24px;
   }
 }
+
+/* ===== Режим «шторки» на телефоні =====
+   На вузькому екрані картка посередині — це компроміс із десктопу: вона
+   лишає марні поля з боків, а її верх і низ губляться за краями. Тут вікно
+   висувається знизу на майже весь екран, як у нативних застосунках: палець
+   лишається біля нижнього краю, де й кнопки.
+
+   Прокрутка при цьому переїжджає всередину вікна — саме тому режим окремий,
+   а не для всіх модалок: у деяких є елементи, що виступають за межі. */
+@media (max-width: 600px) {
+  .sheetOverlay {
+    align-items: flex-end;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .sheet {
+    margin: 0;
+    max-width: none;
+    /* dvh враховує адресний рядок мобільного браузера, який то ховається,
+       то зʼявляється. Зі звичайним vh низ вікна опинявся б під ним. */
+    max-height: 92vh;
+    max-height: 92dvh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 22px 22px 0 0;
+    border-bottom: none;
+    animation: sheetIn 0.36s var(--ease);
+  }
+
+  /* Смужка-«ручка» вгорі: підказує, що вікно висунулось знизу */
+  .sheet::before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    width: 38px;
+    height: 4px;
+    transform: translateX(-50%);
+    border-radius: var(--radius-full);
+    background: var(--color-border-strong);
+  }
+
+  .sheet .body {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 30px 20px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  /* Хрестик лишається на місці, поки вміст гортається під ним */
+  .sheet .close {
+    top: 14px;
+    right: 10px;
+    background: var(--color-surface);
+  }
+}
+
+@keyframes sheetIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

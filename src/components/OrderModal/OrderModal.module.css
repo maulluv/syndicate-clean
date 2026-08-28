@@ -11,6 +11,41 @@
   line-height: 1.55;
 }
 
+/* ===== Вкладки =====
+   Дві дії з різним наміром: «замовити» і «спитати скільки коштує». Друга
+   раніше була лише обіцянкою в тексті контактів, без жодного механізму. */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 22px;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+}
+
+.tab {
+  /* 44px — мінімум, у який упевнено влучає палець */
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  transition: color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+.tabActive {
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+}
+@media (hover: hover) {
+  .tab:not(.tabActive):hover {
+    color: var(--color-text);
+  }
+}
+
 /* Роздільник «або напишіть у месенджер» */
 .divider {
   display: flex;
