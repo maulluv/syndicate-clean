@@ -26,7 +26,15 @@ export default function ServiceModal({ service, onClose }) {
           <div className={styles.info}>
             <h2 className={styles.title}>{service.title}</h2>
             <p className={styles.desc}>{service.desc}</p>
-            <Button iconRight={<ArrowRightIcon />} onClick={openOrder}>
+            {/* Передаємо саме цю послугу — у формі вона вже буде обрана,
+                і людині не доведеться вдруге шукати те, що вона щойно відкрила. */}
+            <Button
+              iconRight={<ArrowRightIcon />}
+              onClick={() => {
+                onClose()
+                openOrder({ service: service.id })
+              }}
+            >
               Замовити
             </Button>
           </div>

@@ -1,0 +1,95 @@
+.button {
+  position: fixed;
+  right: 22px;
+  /* Відступ знизу враховує «безпечну зону» iPhone — інакше кнопка
+     наїжджала б на смугу жестів унизу екрана. */
+  bottom: calc(22px + env(safe-area-inset-bottom));
+  z-index: 90;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-full);
+  color: #17140d;
+  background: var(--color-gold);
+  box-shadow: var(--shadow-gold);
+
+  /* Схована, поки людина на першому екрані */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.9);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.button svg {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: hover) {
+  .button:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 34px rgba(160, 125, 60, 0.45);
+  }
+}
+.button:active {
+  transform: scale(0.96);
+}
+
+/* Тихий пульс — привертає око, але не миготить */
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-gold);
+  opacity: 0;
+  animation: callPulse 3.4s var(--ease) infinite;
+}
+.visible .pulse {
+  animation-play-state: running;
+}
+
+@keyframes callPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  60%,
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@media (hover: hover) {
+  .button:hover .pulse {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .button {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    width: 54px;
+    height: 54px;
+  }
+}

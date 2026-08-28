@@ -34,9 +34,13 @@ export default function OrderModal({
   onClose,
   initialTab,
   calc,
+  service,
   eyebrow = 'Замовити чистку',
   title,
   subtitle,
+  // Тільки способи звʼязку, без форми — таким це вікно було до появи
+  // заявки, і саме таким його відкриває плаваюча кнопка дзвінка.
+  channelsOnly = false,
 }) {
   const [tab, setTab] = useState(initialTab ?? 'order')
 
@@ -50,7 +54,7 @@ export default function OrderModal({
 
   // Розрахунок із калькулятора стосується конкретного набору позицій —
   // вкладка з фото тут була б не до речі.
-  const withTabs = !calc
+  const withTabs = !calc && !channelsOnly
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} sheet>
@@ -80,11 +84,15 @@ export default function OrderModal({
       {/* key змушує форму створитись заново при зміні вкладки: інакше
           в режимі оцінки лишились би поля, заповнені в звичайній заявці,
           разом зі станом помилок. */}
-      <OrderForm key={tab} mode={tab} calc={calc} onDone={onClose} />
+      {!channelsOnly && (
+        <>
+          <OrderForm key={tab} mode={tab} calc={calc} service={service} onDone={onClose} />
 
-      <div className={styles.divider}>
-        <span>або напишіть у месенджер</span>
-      </div>
+          <div className={styles.divider}>
+            <span>або напишіть у месенджер</span>
+          </div>
+        </>
+      )}
 
       <div className={styles.channels}>
         {CONTACT_CHANNELS.map(({ key, label, href, accent, Icon }) => {

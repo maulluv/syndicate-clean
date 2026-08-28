@@ -378,3 +378,15 @@
     width: 100%;
   }
 }
+
+/* Секція з калькулятором на головній */
+.calc {
+  padding: 100px 0;
+  background: var(--color-bg-soft);
+}
+
+@media (max-width: 700px) {
+  .calc {
+    padding: 64px 0;
+  }
+}

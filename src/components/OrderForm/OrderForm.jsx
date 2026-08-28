@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Button from '@/components/Button'
 import PhotoPicker from '@/components/PhotoPicker'
 import { SERVICES, CONTACTS } from '@/config/site'
+import { nextPhoneValue, phoneForSending } from '@/lib/phone'
 import { ArrowRightIcon, CheckIcon, PhoneIcon } from '@/components/icons'
 import styles from './OrderForm.module.css'
 
@@ -41,8 +42,11 @@ const MODES = {
  * @param {string} [calc] - готовий розрахунок із калькулятора
  * @param {() => void} [onDone]
  */
-export default function OrderForm({ mode = 'order', calc, onDone }) {
-  const [values, setValues] = useState(EMPTY)
+export default function OrderForm({ mode = 'order', calc, service, onDone }) {
+  // Послуга може прийти ззовні — наприклад, коли натиснули «Замовити»
+  // у картці конкретної послуги. Тоді список одразу показує потрібне,
+  // і людині не треба обирати те, що вона щойно й так обрала.
+  const [values, setValues] = useState({ ...EMPTY, service: service ?? '' })
   const [photos, setPhotos] = useState([])
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const [errorField, setErrorField] = useState(null)
@@ -54,6 +58,12 @@ export default function OrderForm({ mode = 'order', calc, onDone }) {
   const update = (field) => (event) => {
     setValues((prev) => ({ ...prev, [field]: event.target.value }))
     if (errorField === field) setErrorField(null)
+  }
+
+  // Телефон приводимо до вигляду +380 (67) 123-45-67 просто під час набору
+  const updatePhone = (event) => {
+    setValues((prev) => ({ ...prev, phone: nextPhoneValue(event.target.value, prev.phone) }))
+    if (errorField === 'phone') setErrorField(null)
   }
 
   async function submit(event) {
@@ -75,6 +85,8 @@ export default function OrderForm({ mode = 'order', calc, onDone }) {
       const headers = {}
       const common = {
         ...values,
+        // На сервер іде чистий номер без розмітки: +380671234567
+        phone: phoneForSending(values.phone),
         page: pathname,
         kind: calc ? 'calc' : mode,
         ...(calc ? { calc } : {}),
@@ -199,8 +211,8 @@ export default function OrderForm({ mode = 'order', calc, onDone }) {
             inputMode="tel"
             className={`${styles.input} ${errorField === 'phone' ? styles.invalid : ''}`}
             value={values.phone}
-            onChange={update('phone')}
-            placeholder="+38 (0__) ___-__-__"
+            onChange={updatePhone}
+            placeholder="+380 (__) ___-__-__"
             autoComplete="tel"
             required
           />

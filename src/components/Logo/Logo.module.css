@@ -77,3 +77,23 @@
     margin-top: 2px;
   }
 }
+
+/* На вузьких телефонах у шапці поруч стоять логотип, кнопка замовлення
+   і бургер. У 375px вони разом не вміщались, і бургер виїжджав за екран —
+   тож тут логотип стискається ще сильніше. */
+@media (max-width: 430px) {
+  .logo {
+    gap: 8px;
+  }
+  .md {
+    --mark-size: 27px;
+    --name-size: 0.95rem;
+  }
+  .name {
+    letter-spacing: 0.07em;
+  }
+  .tagline {
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
+  }
+}

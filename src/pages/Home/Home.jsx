@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Container from '@/components/Container'
 import Button from '@/components/Button'
+import Calculator from '@/components/Calculator'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { INTRO, CHEMISTRY_INTRO, CONTACTS } from '@/config/site'
 import { ArrowRightIcon, CheckIcon, ShieldIcon } from '@/components/icons'
@@ -44,6 +45,16 @@ export default function Home() {
       </section>
 
       <IntroSection openOrder={openOrder} />
+
+      {/* Калькулятор і на головній: більшість заходить саме сюди, і питання
+          «скільки це коштує» виникає тут, а не на сторінці послуг. Компонент
+          той самий, ціни ті самі — дублювання даних немає. */}
+      <section className={styles.calc}>
+        <Container>
+          <Calculator />
+        </Container>
+      </section>
+
       <ChemistrySection />
     </>
   )

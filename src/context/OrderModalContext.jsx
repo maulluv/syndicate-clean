@@ -11,6 +11,7 @@ const OrderModalContext = createContext(null)
  *
  * Відкрити одразу на потрібній вкладці або з готовим розрахунком:
  *   openOrder({ tab: 'photo' })
+ *   openOrder({ service: 'sofa' })
  *   openOrder({ calc: 'Кутовий диван × 1 — 2200 грн\nРазом: 2200 грн' })
  *
  * Стан скидається при закритті, щоб наступне відкриття не показало
@@ -39,6 +40,7 @@ export function OrderModalProvider({ children }) {
         onClose={close}
         initialTab={payload?.tab}
         calc={payload?.calc}
+        service={payload?.service}
       />
     </OrderModalContext.Provider>
   )

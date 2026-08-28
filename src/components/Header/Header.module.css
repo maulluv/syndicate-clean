@@ -98,79 +98,6 @@
   gap: 16px;
 }
 
-/* ===== Іконка телефону =====
-   Кругла кнопка в золоті бренду. Поки хедер прозорий і лежить на фото —
-   під нею світлий скляний кружечок, щоб іконка читалась на будь-якому кадрі. */
-.phoneBtn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-full);
-  color: var(--color-gold-ink);
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid var(--color-border-strong);
-  box-shadow: var(--shadow-sm);
-  transition:
-    color var(--transition),
-    background var(--transition),
-    border-color var(--transition),
-    transform var(--transition),
-    box-shadow var(--transition);
-}
-.phoneBtn svg {
-  position: relative;
-  z-index: 1;
-}
-/* Заливку вмикаємо лише там, де є справжній курсор — на тачі :hover
-   «залипає» після тапу і кнопка лишається золотою назавжди. */
-@media (hover: hover) {
-  .phoneBtn:hover {
-    color: #17140d;
-    background: var(--color-gold);
-    border-color: var(--color-gold);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-gold);
-  }
-  .phoneBtn:hover .phoneRing {
-    animation: none;
-    opacity: 0;
-  }
-}
-.phoneBtn:active {
-  transform: translateY(0);
-}
-
-/* Тихий золотий пульс — привертає око, але не миготить */
-.phoneRing {
-  position: absolute;
-  inset: -1px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-gold);
-  opacity: 0;
-  animation: phonePulse 3.2s var(--ease) infinite;
-}
-@keyframes phonePulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  60%,
-  100% {
-    transform: scale(1.45);
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .phoneRing {
-    animation: none;
-  }
-}
-
 /* ===== Бургер ===== */
 .burger {
   display: none;
@@ -242,12 +169,16 @@
   margin-top: 28px;
 }
 
+/* Кнопка замовлення має два написи: повний і короткий. Перемикаємо їх
+   показом, а не зміною тексту в коді, щоб не тримати те саме у двох місцях
+   і щоб пошуковик бачив повний варіант. */
+.ctaShort {
+  display: none;
+}
+
 /* ===== Адаптив ===== */
 @media (max-width: 860px) {
   .nav {
-    display: none;
-  }
-  .cta {
     display: none;
   }
   .burger {
@@ -259,8 +190,36 @@
 }
 
 @media (max-width: 600px) {
-  .phoneBtn {
+  /* Місця рівно на логотип, кнопку й бургер — лишаємо коротке слово */
+  .ctaFull {
+    display: none;
+  }
+  .ctaShort {
+    display: inline;
+  }
+  .cta {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* На вузьких телефонах логотип, кнопка й бургер конкурують за ту саму
+   смугу. Стискаємо кнопку й бургер, логотип — у Logo.module.css. */
+@media (max-width: 430px) {
+  .inner {
+    gap: 8px;
+  }
+  .cta {
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: 0.8rem;
+  }
+  .burger {
     width: 38px;
     height: 38px;
+    padding: 9px 7px;
+  }
+  .actions {
+    gap: 4px;
   }
 }
