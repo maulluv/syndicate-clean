@@ -183,6 +183,23 @@ async function warnAboutMissingRoutes() {
   )
 }
 
+/* Чернетки у відповідях FAQ. Їх писав розробник як заглушку, поки власник
+   не дав справжні. Опублікувати таке — це пообіцяти клієнту те, чого ніхто
+   не підтверджував, тож попереджаємо голосно при кожній збірці. */
+function warnAboutDraftFaq() {
+  const drafts = FAQ.filter((item) => item.draft && item.answer?.trim())
+  if (!drafts.length) return
+
+  console.warn(
+    `\n⚠️  У блоці «Часті питання» ${drafts.length} відповідей — ЧЕРНЕТКИ:\n` +
+      drafts.map((item) => `      ${item.q}`).join('\n') +
+      `\n   Це заглушки, а не слова власника. Замініть текст у src/config/site.js\n` +
+      `   і приберіть у позиції прапорець draft.\n`
+  )
+}
+
+warnAboutDraftFaq()
+
 await warnAboutMissingRoutes()
 
 /* ===== Запис сторінок ===== */
