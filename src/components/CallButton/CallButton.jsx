@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import OrderModal from '@/components/OrderModal'
 import { CONTACTS } from '@/config/site'
-import { subscribeStickyCta } from '@/lib/stickyCta'
 import { PhoneIcon } from '@/components/icons'
 import styles from './CallButton.module.css'
 
@@ -22,21 +21,14 @@ import styles from './CallButton.module.css'
  */
 export default function CallButton() {
   const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [stickyCta, setStickyCta] = useState(false)
+  const [shown, setShown] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 420)
+    const onScroll = () => setShown(window.scrollY > 420)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  // Калькулятор повідомляє, коли його підсумок із кнопкою «Замовити»
-  // видно внизу екрана — тоді поступаємось місцем.
-  useEffect(() => subscribeStickyCta(setStickyCta), [])
-
-  const shown = scrolled && !stickyCta
 
   return (
     <>

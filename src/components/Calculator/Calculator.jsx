@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import Button from '@/components/Button'
 import { useOrderModal } from '@/context/OrderModalContext'
-import { setStickyCta } from '@/lib/stickyCta'
 import { CALCULATOR_ITEMS } from '@/config/site'
 import { PlusIcon, MinusIcon, ArrowRightIcon } from '@/components/icons'
 import styles from './Calculator.module.css'
@@ -36,27 +35,6 @@ export default function Calculator() {
   const [counts, setCounts] = useState({})
   const openOrder = useOrderModal()
   const groups = useMemo(() => byGroup(CALCULATOR_ITEMS), [])
-  const totalRef = useRef(null)
-
-  /* Поки підсумок із кнопкою «Замовити» видно на екрані, плаваюча кнопка
-     звʼязку ховається: вона стоїть у тому ж куті й наїжджала просто на
-     кнопку замовлення. Дві дії, що перекривають одна одну, — це не вибір,
-     а промах пальцем. */
-  useEffect(() => {
-    const node = totalRef.current
-    if (!node) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setStickyCta(entry.isIntersecting),
-      { threshold: 0.1 }
-    )
-
-    observer.observe(node)
-    return () => {
-      observer.disconnect()
-      setStickyCta(false)
-    }
-  }, [])
 
   const change = (id, delta) =>
     setCounts((prev) => {
@@ -145,7 +123,7 @@ export default function Calculator() {
 
       {/* Підсумок липне до низу екрана, поки людина гортає список: сума має
           бути перед очима в момент вибору, а не десь нижче. */}
-      <div ref={totalRef} className={`${styles.total} ${total > 0 ? styles.totalActive : ''}`}>
+      <div className={`${styles.total} ${total > 0 ? styles.totalActive : ''}`}>
         <div className={styles.totalText}>
           <span className={styles.totalLabel}>
             {total > 0 ? 'Орієнтовно' : 'Оберіть позиції вище'}
