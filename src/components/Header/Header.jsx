@@ -3,13 +3,16 @@ import { NavLink, useLocation } from 'react-router-dom'
 import Container from '@/components/Container'
 import Logo from '@/components/Logo'
 import Button from '@/components/Button'
+import OrderModal from '@/components/OrderModal'
+import { PhoneIcon } from '@/components/icons'
 import { useOrderModal } from '@/context/OrderModalContext'
-import { NAV_LINKS } from '@/config/site'
+import { NAV_LINKS, CONTACTS } from '@/config/site'
 import styles from './Header.module.css'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
   const location = useLocation()
   const openOrder = useOrderModal()
 
@@ -61,6 +64,18 @@ export default function Header() {
         </nav>
 
         <div className={styles.actions}>
+          {/* Телефон — швидкий зв'язок. Відкриває ту саму модалку з каналами,
+              що й CTA, але з «телефонним» текстом. */}
+          <button
+            className={styles.phoneBtn}
+            onClick={() => setContactOpen(true)}
+            aria-label={`Звʼязатися: ${CONTACTS.phoneDisplay}`}
+            title={CONTACTS.phoneDisplay}
+          >
+            <span className={styles.phoneRing} aria-hidden="true" />
+            <PhoneIcon size={19} />
+          </button>
+
           <Button size="sm" className={styles.cta} onClick={openOrder}>
             Замовити чистку
           </Button>
@@ -108,6 +123,14 @@ export default function Header() {
           </Button>
         </nav>
       </div>
+
+      <OrderModal
+        isOpen={contactOpen}
+        onClose={() => setContactOpen(false)}
+        eyebrow="Звʼязок"
+        title="Зателефонуйте або напишіть"
+        subtitle={`${CONTACTS.hours}. Оберіть зручний спосіб — відповімо швидко.`}
+      />
     </>
   )
 }

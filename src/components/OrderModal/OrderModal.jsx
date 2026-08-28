@@ -1,75 +1,79 @@
 import Modal from '@/components/Modal'
-import { SOCIAL, CONTACTS } from '@/config/site'
-import {
-  InstagramIcon,
-  TelegramIcon,
-  FacebookIcon,
-  PhoneIcon,
-  ArrowRightIcon,
-} from '@/components/icons'
+import { CONTACTS } from '@/config/site'
+import { CONTACT_CHANNELS, channelHint } from '@/config/channels'
+import { PhoneIcon, ArrowRightIcon } from '@/components/icons'
 import styles from './OrderModal.module.css'
 
-/** Варіанти зв'язку — беруться з config/site.js.
-    Канал без посилання (порожній рядок) не показується. */
-const CHANNELS = [
-  {
-    key: 'telegram',
-    label: 'Telegram',
-    hint: 'Швидка відповідь у чаті',
-    icon: <TelegramIcon />,
-    href: SOCIAL.telegram,
-    accent: '#2aabee',
-  },
-  {
-    key: 'facebook',
-    label: 'Facebook',
-    hint: 'Messenger або сторінка',
-    icon: <FacebookIcon />,
-    href: SOCIAL.facebook,
-    accent: '#1877f2',
-  },
-  {
-    key: 'instagram',
-    label: 'Instagram',
-    hint: 'Напишіть у Direct',
-    icon: <InstagramIcon />,
-    href: SOCIAL.instagram,
-    accent: '#d6249f',
-  },
-].filter((c) => c.href)
-
-/** Модалка вибору способу замовлення (замість форми). */
-export default function OrderModal({ isOpen, onClose }) {
+/** Модалка вибору способу зв'язку.
+    За замовчуванням — «Замовити чистку» (кнопки CTA по сайту).
+    Через eyebrow/title/subtitle той самий список каналів
+    перевикористовується під інший контекст — напр. іконка телефону в хедері. */
+export default function OrderModal({
+  isOpen,
+  onClose,
+  eyebrow = 'Замовити чистку',
+  title = 'Як вам зручно звʼязатися?',
+  subtitle = `${CONTACTS.note}. Оберіть месенджер — підберемо час і порахуємо вартість.`,
+}) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.head}>
-        <p className="eyebrow">Замовити чистку</p>
-        <h2 className={styles.title}>Як вам зручно звʼязатися?</h2>
-        <p className={styles.subtitle}>
-          {CONTACTS.note}. Оберіть месенджер — підберемо час і порахуємо вартість.
-        </p>
+        <p className="eyebrow">{eyebrow}</p>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.subtitle}>{subtitle}</p>
       </div>
 
       <div className={styles.channels}>
-        {CHANNELS.map((c) => (
-          <a
-            key={c.key}
-            href={c.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.channel}
-            style={{ '--accent': c.accent }}
-          >
-            <span className={styles.channelIcon}>{c.icon}</span>
-            <span className={styles.channelText}>
-              <span className={styles.channelLabel}>{c.label}</span>
-              <span className={styles.channelHint}>{c.hint}</span>
-            </span>
-            <span className={styles.channelArrow}>
-              <ArrowRightIcon />
-            </span>
-          </a>
-        ))}
+        {CONTACT_CHANNELS.map((channel) => {
+          const { key, label, href, accent, Icon } = channel
+
+          const content = (
+            <>
+              <span className={styles.channelIcon}>
+                <Icon />
+              </span>
+              <span className={styles.channelText}>
+                <span className={styles.channelLabel}>{label}</span>
+                <span className={styles.channelHint}>{channelHint(channel)}</span>
+              </span>
+              <span className={styles.channelArrow}>
+                <ArrowRightIcon />
+              </span>
+            </>
+          )
+
+          // Канал без посилання лишається на місці, але не клікається:
+          // місце під нього вже видно, а натиснути ще нема куди.
+          if (!href) {
+            return (
+              <span
+                key={key}
+                className={`${styles.channel} ${styles.channelSoon}`}
+                style={{ '--accent': accent }}
+                aria-disabled="true"
+              >
+                {content}
+              </span>
+            )
+          }
+
+          // viber:// — не сайт, а команда відкрити застосунок. У новій вкладці
+          // вона лишила б по собі порожню сторінку, тому нове вікно тільки
+          // для звичайних http-посилань.
+          const opensSite = href.startsWith('http')
+
+          return (
+            <a
+              key={key}
+              href={href}
+              {...(opensSite ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className={styles.channel}
+              style={{ '--accent': accent }}
+            >
+              {content}
+            </a>
+          )
+        })}
       </div>
 
       <div className={styles.divider}>

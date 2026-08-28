@@ -162,3 +162,19 @@
     font-size: clamp(0.85rem, 4.4vw, 1rem);
   }
 }
+
+/* Канал без посилання — поки що неактивний (зараз це Instagram).
+   Показуємо приглушено, без ховера й курсора-пальця: видно, що кнопка є,
+   але натиснути ще нема куди. */
+.channelSoon {
+  opacity: 0.55;
+  cursor: default;
+}
+.channelSoon:hover {
+  border-color: var(--color-border);
+  background: var(--color-bg-soft);
+  transform: none;
+}
+.channelSoon .channelArrow {
+  visibility: hidden;
+}

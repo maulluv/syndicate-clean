@@ -1,10 +1,20 @@
+/* Прокручується саме затемнення, а не сама модалка: усередині модалки є
+   елементи, що навмисно виступають за її межі (мініатюра в кутку), і
+   overflow на ній їх би обрізав.
+
+   align-items: flex-start разом із margin: auto на модалці — це спосіб
+   тримати її по центру, поки вона вміщається, і не обрізати їй верх, коли
+   вміст вищий за екран. Зі звичайним align-items: center у прокручуваному
+   контейнері верх модалки просто не догортати. */
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 200;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 24px;
   background: rgba(6, 6, 8, 0.72);
   backdrop-filter: blur(8px);
@@ -13,6 +23,7 @@
 }
 
 .modal {
+  margin: auto;
   position: relative;
   width: 100%;
   background: var(--color-surface);
