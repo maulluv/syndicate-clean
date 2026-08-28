@@ -29,6 +29,7 @@ import {
   pageUrl,
   SEO,
   FAQ,
+  PROCESS,
   HAS_WORKS,
   WORKS_PATH,
   OG_IMAGE,
@@ -201,6 +202,22 @@ function warnAboutDraftFaq() {
 }
 
 warnAboutDraftFaq()
+
+/* Те саме для кроків процесу: це опис реальної роботи, і вгадати його
+   неможливо. Попереджаємо, поки текст не підтвердив власник. */
+function warnAboutDraftProcess() {
+  const drafts = PROCESS.filter((step) => step.draft)
+  if (!drafts.length) return
+
+  console.warn(
+    `\n⚠️  У блоці «Як ми працюємо» ${drafts.length} кроків — ЧЕРНЕТКИ:\n` +
+      drafts.map((step) => `      ${step.title}`).join('\n') +
+      `\n   Це опис процесу, написаний навмання. Замініть на реальний у\n` +
+      `   src/config/site.js і приберіть прапорець draft.\n`
+  )
+}
+
+warnAboutDraftProcess()
 
 await warnAboutMissingRoutes()
 

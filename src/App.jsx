@@ -6,8 +6,9 @@ import Services from '@/pages/Services'
 import Chemistry from '@/pages/Chemistry'
 import Contacts from '@/pages/Contacts'
 import Works from '@/pages/Works'
+import Process from '@/pages/Process'
 import NotFound from '@/pages/NotFound'
-import { HAS_WORKS, WORKS_PATH } from '@/config/site'
+import { HAS_WORKS, WORKS_PATH, HAS_PROCESS, PROCESS_PATH } from '@/config/site'
 
 export default function App() {
   return (
@@ -18,6 +19,12 @@ export default function App() {
           <Route path="/poslugy" element={<Services />} />
           <Route path="/himiya" element={<Chemistry />} />
           <Route path="/kontakty" element={<Contacts />} />
+
+          {/* «Як ми працюємо» зʼявляється сама, щойно в config/site.js
+              бодай в одному кроці буде ролик. Шлях константою — щоб
+              перевірка маршрутів у збірці не вважала його забутим у SEO,
+              поки сторінка вимкнена. */}
+          {HAS_PROCESS && <Route path={PROCESS_PATH} element={<Process />} />}
 
           {/* «Наші роботи» зʼявляються самі, щойно в config/site.js буде
               перше фото «до/після» чи скріншот подяки. Поки їх немає,
