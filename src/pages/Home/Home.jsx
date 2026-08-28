@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Container from '@/components/Container'
 import Button from '@/components/Button'
-import Calculator from '@/components/Calculator'
+import Faq from '@/components/Faq'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { INTRO, CHEMISTRY_INTRO, CONTACTS } from '@/config/site'
 import { ArrowRightIcon, CheckIcon, ShieldIcon } from '@/components/icons'
@@ -46,16 +46,16 @@ export default function Home() {
 
       <IntroSection openOrder={openOrder} />
 
-      {/* Калькулятор і на головній: більшість заходить саме сюди, і питання
-          «скільки це коштує» виникає тут, а не на сторінці послуг. Компонент
-          той самий, ціни ті самі — дублювання даних немає. */}
-      <section className={styles.calc}>
+      <ChemistrySection />
+
+      {/* Часті питання в самому низу — останнє, що читають перед тим, як
+          піти або замовити. Саме тут доречно закрити рештки сумнівів.
+          Блок не рендериться, поки в config/site.js немає відповідей. */}
+      <section className={styles.faq}>
         <Container>
-          <Calculator />
+          <Faq />
         </Container>
       </section>
-
-      <ChemistrySection />
     </>
   )
 }

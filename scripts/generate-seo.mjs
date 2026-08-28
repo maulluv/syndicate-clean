@@ -100,8 +100,8 @@ function faqSchema() {
   }
 }
 
-/** Сторінка, на якій живе блок питань (див. src/pages/Services). */
-const FAQ_PAGE = '/poslugy'
+/** Сторінка, на якій живе блок питань (див. src/pages/Home). */
+const FAQ_PAGE = '/'
 
 /**
  * Повний набір тегів <head> для однієї сторінки.

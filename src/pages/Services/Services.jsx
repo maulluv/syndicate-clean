@@ -4,7 +4,6 @@ import Button from '@/components/Button'
 import ServiceCard from '@/components/ServiceCard'
 import ServiceModal from '@/components/ServiceModal'
 import Calculator from '@/components/Calculator'
-import Faq from '@/components/Faq'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { ArrowRightIcon } from '@/components/icons'
 import { SERVICES, PRICING, FEATURES } from '@/config/site'
@@ -76,14 +75,6 @@ export default function Services() {
             же може зібрати свій набір, не рахуючи в голові. */}
         <div className={styles.calculator}>
           <Calculator />
-        </div>
-
-        {/* ===== Часті питання =====
-            Після прайсу й калькулятора: людина вже знає ціну, і саме тут
-            зʼявляються сумніви «а скільки сохне» та «а раптом не відчиститься».
-            Блок не рендериться, поки у config/site.js немає відповідей. */}
-        <div className={styles.faq}>
-          <Faq />
         </div>
 
         {/* ===== Переваги ===== */}

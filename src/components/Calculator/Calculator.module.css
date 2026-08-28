@@ -131,7 +131,12 @@
   gap: 20px;
   flex-wrap: wrap;
   margin-top: 30px;
-  padding: 18px 22px;
+  /* Праворуч лишаємо місце під плаваючу кнопку звʼязку: вона висить у тому
+     самому куті екрана. Зазвичай її ховає сам калькулятор (див. lib/stickyCta),
+     але покладатись лише на це не можна — якщо приховування не спрацює,
+     кнопка накриє «Замовити», і натиснути стане нічим. Відступ гарантує,
+     що вони не перетнуться в будь-якому разі. */
+  padding: 18px 92px 18px 22px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background: var(--color-bg-soft);
@@ -188,11 +193,19 @@
   }
   .total {
     bottom: 10px;
-    padding: 14px 16px;
+    padding: 14px 82px 14px 16px;
     gap: 12px;
   }
   .totalButton {
     flex: 1;
     min-width: 140px;
+  }
+}
+
+/* Від 1360px контейнер уже не дістає до краю екрана, і плаваюча кнопка
+   висить збоку від нього — місце під неї резервувати не треба. */
+@media (min-width: 1360px) {
+  .total {
+    padding-right: 22px;
   }
 }
