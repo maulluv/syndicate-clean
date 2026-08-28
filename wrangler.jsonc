@@ -7,9 +7,25 @@
   "name": "syndicate-clean",
   "compatibility_date": "2026-08-17",
 
+  // Тонкий шар перед файлами сайту: редірект з www і заборона індексації
+  // технічних адрес. Докладніше — в коментарі всередині самого файлу.
+  "main": "./worker/index.js",
+
+  // Технічна адреса виду syndicate-clean.<акаунт>.workers.dev вимкнена:
+  // вона віддавала повну копію сайту, і в пошуку з'являлись дублі.
+  // Сайт живе тільки на власному домені.
+  "workers_dev": false,
+
   "assets": {
     // Куди Vite кладе зібраний сайт
     "directory": "./dist",
+
+    // Через цю змінну worker/index.js віддає файли сайту
+    "binding": "ASSETS",
+
+    // Пускати код ДО віддачі файлів. Інакше www.syndicateclean.com одразу
+    // отримав би index.html, і редірект ніколи б не спрацював.
+    "run_worker_first": true,
 
     // Кожна сторінка сайту має власний файл: dist/poslugy/index.html і т.д.
     // Їх генерує scripts/generate-seo.mjs — саме з них робот Google і
