@@ -111,6 +111,11 @@ const FAQ_PAGE = '/'
  * пошук: інакше Google почне показувати «Сторінку не знайдено» у видачі.
  */
 function headFor(path, meta, { indexable = true } = {}) {
+  // Сторінка може бути позначена noindex у самому записі SEO — так
+  // тимчасові сторінки з заглушками можна показати людині, але не пустити
+  // в пошук. Прибираєте noindex у config/site.js — сторінка йде в індекс.
+  if (meta.noindex) indexable = false
+
   const url = pageUrl(path)
   const image = `${SITE_URL}${OG_IMAGE}`
 
@@ -238,6 +243,11 @@ if (!SEO_BLOCK.test(template)) {
 const analytics = analyticsFor()
 const routes = Object.entries(SEO).filter(([key]) => key.startsWith('/'))
 
+/* У sitemap подаємо лише те, що справді має бути в пошуку. Закриту
+   сторінку туди класти не можна: це прямо суперечливий сигнал —
+   «проіндексуй» у карті сайту й «не індексуй» на самій сторінці. */
+const indexableRoutes = routes.filter(([, meta]) => !meta.noindex)
+
 for (const [path, meta] of routes) {
   const html = template
     .replace(SEO_BLOCK, headFor(path, meta))
@@ -264,7 +274,7 @@ await writeFile(
 const today = new Date().toISOString().slice(0, 10)
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes
+${indexableRoutes
   .map(
     ([path]) => `  <url>
     <loc>${pageUrl(path)}</loc>
