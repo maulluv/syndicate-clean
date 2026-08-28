@@ -161,3 +161,14 @@
     margin-top: 60px;
   }
 }
+
+/* Часті питання — під калькулятором */
+.faq:not(:empty) {
+  margin-top: 90px;
+}
+
+@media (max-width: 700px) {
+  .faq:not(:empty) {
+    margin-top: 60px;
+  }
+}

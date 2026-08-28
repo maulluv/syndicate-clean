@@ -28,6 +28,7 @@ import {
   SITE_URL,
   pageUrl,
   SEO,
+  FAQ,
   OG_IMAGE,
   ANALYTICS,
   BRAND,
@@ -75,6 +76,31 @@ function businessSchema() {
   }
 }
 
+/* ===== Розмітка «Часті питання» =====
+   Розширеного блоку у видачі з неї вже не буде: Google прибрав FAQ rich
+   results у травні 2026-го. Але розмітку далі використовують, щоб зрозуміти
+   зміст сторінки, і її читають AI-пошуковики. Коштує це нічого, тож лишаємо.
+
+   Питання без відповіді пропускаємо — так само, як їх пропускає сам блок
+   на сайті. Немає жодної відповіді — немає й розмітки. */
+function faqSchema() {
+  const answered = FAQ.filter((item) => item.answer?.trim())
+  if (!answered.length) return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: answered.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer.trim() },
+    })),
+  }
+}
+
+/** Сторінка, на якій живе блок питань (див. src/pages/Services). */
+const FAQ_PAGE = '/poslugy'
+
 /**
  * Повний набір тегів <head> для однієї сторінки.
  * indexable: false — для 404. Такій сторінці не можна давати canonical
@@ -107,7 +133,11 @@ function headFor(path, meta, { indexable = true } = {}) {
     <meta name="twitter:description" content="${attr(meta.description)}" />
     <meta name="twitter:image" content="${attr(image)}" />
 
-    <script type="application/ld+json">${JSON.stringify(businessSchema())}</script>`
+    <script type="application/ld+json">${JSON.stringify(businessSchema())}</script>${
+      path === FAQ_PAGE && faqSchema()
+        ? `\n    <script type="application/ld+json">${JSON.stringify(faqSchema())}</script>`
+        : ''
+    }`
 }
 
 /** Сніпет Google Analytics. Порожній рядок, якщо лічильник не налаштований. */
