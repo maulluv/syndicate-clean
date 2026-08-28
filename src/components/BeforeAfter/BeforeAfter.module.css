@@ -1,0 +1,133 @@
+.wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-soft);
+  user-select: none;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Знімки не можна тягнути мишею: інакше замість руху межі браузер
+     починав би перетягувати саму картинку. */
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* Шар «до» обрізається по межі. clip-path, а не width, щоб знімок не
+   стискався: інакше при русі повзунка обидва кадри «їхали» б один
+   відносно одного й порівнювати було б неможливо. */
+.beforeLayer {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+/* ===== Межа ===== */
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 12px rgba(20, 16, 10, 0.35);
+  pointer-events: none;
+}
+
+.handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 16px rgba(20, 16, 10, 0.3);
+}
+/* Дві стрілки всередині — підказка, що це тягнеться */
+.handle::before,
+.handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-top: 1.6px solid var(--color-text);
+  border-right: 1.6px solid var(--color-text);
+}
+.handle::before {
+  left: 12px;
+  transform: translateY(-50%) rotate(-135deg);
+}
+.handle::after {
+  right: 12px;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ===== Підписи ===== */
+.badge {
+  position: absolute;
+  top: 12px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(20, 16, 10, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.badgeBefore {
+  left: 12px;
+}
+.badgeAfter {
+  right: 12px;
+}
+
+/* ===== Керування =====
+   Повзунок розтягнутий на весь кадр і зроблений прозорим: тягнути можна
+   з будь-якої точки знімка, а не лише за кружечок. */
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+.range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 44px;
+  height: 100%;
+  cursor: ew-resize;
+}
+.range::-moz-range-thumb {
+  width: 44px;
+  height: 100%;
+  border: none;
+  cursor: ew-resize;
+}
+
+/* Обвідка при керуванні з клавіатури — інакше незрячий фокус губиться */
+.range:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
+}
