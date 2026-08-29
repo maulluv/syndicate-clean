@@ -9,6 +9,7 @@
 | `sofa.webp`      | Чищення диванів  | https://www.pexels.com/photo/3105219/                |
 | `armchair.webp`  | Чищення крісел   | https://www.pexels.com/photo/18258470/               |
 | `mattress.webp`  | Чищення матраців | https://www.pexels.com/photo/31184400/               |
+| `carpet.webp`    | Чищення килимів  | ПОТРІБНЕ ФОТО — поки картка показує градієнтну плашку |
 | `chairs.webp`    | Чищення стільців | https://www.pexels.com/photo/27408396/               |
 | `pouf.webp`      | Пуфи та подушки  | https://www.pexels.com/photo/6908070/                |
 | `odor.webp`      | Виведення запаху | https://www.pexels.com/photo/18186514/               |
