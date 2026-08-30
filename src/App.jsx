@@ -3,12 +3,13 @@ import { OrderModalProvider } from '@/context/OrderModalContext'
 import MainLayout from '@/layouts/MainLayout'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
+import Service from '@/pages/Service'
 import Chemistry from '@/pages/Chemistry'
 import Contacts from '@/pages/Contacts'
 import Works from '@/pages/Works'
 import Process from '@/pages/Process'
 import NotFound from '@/pages/NotFound'
-import { HAS_WORKS, WORKS_PATH, HAS_PROCESS, PROCESS_PATH } from '@/config/site'
+import { HAS_WORKS, WORKS_PATH, HAS_PROCESS, PROCESS_PATH, SERVICE_BASE } from '@/config/site'
 
 export default function App() {
   return (
@@ -17,6 +18,12 @@ export default function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/poslugy" element={<Services />} />
+
+          {/* Окрема сторінка кожної послуги: /poslugy/chyshchennya-dyvaniv.
+              Шлях складається з константи, а не пишеться рядком, — так
+              перевірка маршрутів у збірці не сприймає його як забутий у SEO
+              (записи туди генеруються зі списку послуг). */}
+          <Route path={`${SERVICE_BASE}/:slug`} element={<Service />} />
           <Route path="/himiya" element={<Chemistry />} />
           <Route path="/kontakty" element={<Contacts />} />
 

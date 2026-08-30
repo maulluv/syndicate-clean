@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import Container from '@/components/Container'
 import Button from '@/components/Button'
 import ServiceCard from '@/components/ServiceCard'
-import ServiceModal from '@/components/ServiceModal'
 import Calculator from '@/components/Calculator'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { ArrowRightIcon } from '@/components/icons'
@@ -10,7 +8,6 @@ import { SERVICES, PRICING, FEATURES } from '@/config/site'
 import styles from './Services.module.css'
 
 export default function Services() {
-  const [active, setActive] = useState(null)
   const openOrder = useOrderModal()
 
   return (
@@ -27,11 +24,7 @@ export default function Services() {
 
         <div className={styles.grid}>
           {SERVICES.map((service) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              onOpen={() => setActive(service)}
-            />
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
@@ -88,7 +81,6 @@ export default function Services() {
         </div>
       </Container>
 
-      <ServiceModal service={active} onClose={() => setActive(null)} />
     </section>
   )
 }
