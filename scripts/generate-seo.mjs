@@ -34,6 +34,7 @@ import {
   WORKS_PATH,
   OG_IMAGE,
   ANALYTICS,
+  VERIFICATION,
   BRAND,
   CONTACTS,
   SOCIAL,
@@ -119,7 +120,13 @@ function headFor(path, meta, { indexable = true } = {}) {
   const url = pageUrl(path)
   const image = `${SITE_URL}${OG_IMAGE}`
 
-  return `<title>${attr(meta.title)}</title>
+  // Підтвердження прав у Search Console. Ставимо на всіх сторінках, а не
+  // лише на головній: Google перевіряє тег періодично, і зайвим він не буде.
+  const verification = VERIFICATION.google?.trim()
+    ? `<meta name="google-site-verification" content="${attr(VERIFICATION.google.trim())}" />\n    `
+    : ''
+
+  return `${verification}<title>${attr(meta.title)}</title>
     <meta name="description" content="${attr(meta.description)}" />
     ${indexable ? `<link rel="canonical" href="${attr(url)}" />` : '<meta name="robots" content="noindex" />'}
 
@@ -148,21 +155,38 @@ function headFor(path, meta, { indexable = true } = {}) {
     }`
 }
 
-/** Сніпет Google Analytics. Порожній рядок, якщо лічильник не налаштований. */
+/**
+ * Лічильники відвідувань. Порожній рядок у налаштуваннях = скрипт не
+ * потрапляє на сайт узагалі, а не просто мовчить.
+ */
 function analyticsFor() {
-  const id = ANALYTICS.ga4?.trim()
-  if (!id) return ''
+  const parts = []
 
-  // send_page_view вимкнений навмисно: перехід між сторінками в SPA не
-  // перезавантажує вкладку, тож перегляди рахує сам сайт — див.
-  // src/hooks/usePageMeta.js. Інакше головна рахувалась би двічі.
-  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${id}"></script>
+  const cf = ANALYTICS.cloudflare?.trim()
+  if (cf) {
+    // defer, щоб лічильник не затримував показ сторінки: він потрібен для
+    // статистики, а не для роботи сайту.
+    parts.push(
+      `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" ` +
+        `data-cf-beacon='{"token": "${cf}"}'></script>`
+    )
+  }
+
+  const ga = ANALYTICS.ga4?.trim()
+  if (ga) {
+    // send_page_view вимкнений навмисно: перехід між сторінками в SPA не
+    // перезавантажує вкладку, тож перегляди рахує сам сайт — див.
+    // src/hooks/usePageMeta.js. Інакше головна рахувалась би двічі.
+    parts.push(`<script async src="https://www.googletagmanager.com/gtag/js?id=${ga}"></script>
     <script>
       window.dataLayer = window.dataLayer || []
       function gtag() { dataLayer.push(arguments) }
       gtag('js', new Date())
-      gtag('config', '${id}', { send_page_view: false })
-    </script>`
+      gtag('config', '${ga}', { send_page_view: false })
+    </script>`)
+  }
+
+  return parts.join('\n    ')
 }
 
 /* ===== Запобіжник =====
@@ -338,6 +362,9 @@ Sitemap: ${SITE_URL}/sitemap.xml
 
 console.log(
   `SEO: ${routes.length} сторінок + 404, sitemap.xml, robots.txt` +
-    (analytics ? `, аналітика ${ANALYTICS.ga4}` : ', аналітика вимкнена') +
+    (analytics
+      ? `, аналітика: ${[ANALYTICS.cloudflare && 'Cloudflare', ANALYTICS.ga4 && 'GA4'].filter(Boolean).join(' + ')}`
+      : ', аналітика вимкнена') +
+    (VERIFICATION.google ? ', Search Console підтверджено' : '') +
     (HAS_WORKS ? ', сторінка робіт увімкнена' : '')
 )
