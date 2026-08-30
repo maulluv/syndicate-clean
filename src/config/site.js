@@ -48,7 +48,7 @@ export const ANALYTICS = {
    Після підтвердження тег прибирати НЕ можна: Google перевіряє його
    періодично, і без нього права злетять. */
 export const VERIFICATION = {
-  google: '',
+  google: 'hthvPwPuLtIChXHNJJcyNxI7MgYJURB2AywdquR3vag',
 }
 
 /* ===== Бренд ===== */
