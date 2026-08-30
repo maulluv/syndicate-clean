@@ -122,9 +122,17 @@ function headFor(path, meta, { indexable = true } = {}) {
 
   // Підтвердження прав у Search Console. Ставимо на всіх сторінках, а не
   // лише на головній: Google перевіряє тег періодично, і зайвим він не буде.
-  const verification = VERIFICATION.google?.trim()
-    ? `<meta name="google-site-verification" content="${attr(VERIFICATION.google.trim())}" />\n    `
-    : ''
+  //
+  // Тегів може бути кілька — коли сайт підтверджують з різних акаунтів.
+  // Приймаємо і рядок, і масив, щоб не переписувати конфіг заради одного.
+  const tokens = [VERIFICATION.google ?? []]
+    .flat()
+    .map((token) => String(token).trim())
+    .filter(Boolean)
+
+  const verification = tokens
+    .map((token) => `<meta name="google-site-verification" content="${attr(token)}" />\n    `)
+    .join('')
 
   return `${verification}<title>${attr(meta.title)}</title>
     <meta name="description" content="${attr(meta.description)}" />
@@ -365,6 +373,8 @@ console.log(
     (analytics
       ? `, аналітика: ${[ANALYTICS.cloudflare && 'Cloudflare', ANALYTICS.ga4 && 'GA4'].filter(Boolean).join(' + ')}`
       : ', аналітика вимкнена') +
-    (VERIFICATION.google ? ', Search Console підтверджено' : '') +
+    ([VERIFICATION.google ?? []].flat().filter(Boolean).length
+      ? `, Search Console: ${[VERIFICATION.google].flat().filter(Boolean).length} підтвердження`
+      : '') +
     (HAS_WORKS ? ', сторінка робіт увімкнена' : '')
 )

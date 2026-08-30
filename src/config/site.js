@@ -45,10 +45,17 @@ export const ANALYTICS = {
    URL prefix → https://syndicateclean.com → спосіб «HTML tag» →
    скопіювати значення content, а не весь тег.
 
+   Можна вказати кілька — рядком або масивом. Це потрібно, коли сайт
+   підтверджують з різних акаунтів: тег унікальний для кожного, і чужий
+   не спрацює. Тримати обидва можна скільки завгодно, вони не конфліктують.
+
    Після підтвердження тег прибирати НЕ можна: Google перевіряє його
    періодично, і без нього права злетять. */
 export const VERIFICATION = {
-  google: 'hthvPwPuLtIChXHNJJcyNxI7MgYJURB2AywdquR3vag',
+  google: [
+    // Робочий акаунт syndicatecleann@gmail.com
+    'uTHABIcPFjIc8vzUyN5DqL8y3QLLYpus8pb5AVNyy58',
+  ],
 }
 
 /* ===== Бренд ===== */
