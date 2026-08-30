@@ -224,6 +224,22 @@ function warnAboutDraftProcess() {
 
 warnAboutDraftProcess()
 
+/* Питання без відповіді. Це не помилка — вони навмисно не показуються,
+   поки власник не відповів. Але легко забути, що вони взагалі є, тож
+   нагадуємо при кожній збірці. */
+function noteUnansweredFaq() {
+  const waiting = FAQ.filter((item) => !item.answer?.trim())
+  if (!waiting.length) return
+
+  console.log(
+    `\nℹ️  ${waiting.length} питань чекають на відповідь власника (на сайті не показуються):\n` +
+      waiting.map((item) => `      ${item.q}`).join('\n') +
+      '\n'
+  )
+}
+
+noteUnansweredFaq()
+
 await warnAboutMissingRoutes()
 
 /* ===== Запис сторінок ===== */
