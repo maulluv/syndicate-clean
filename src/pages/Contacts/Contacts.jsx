@@ -1,20 +1,8 @@
 import Container from '@/components/Container'
-import { SOCIAL, CONTACTS } from '@/config/site'
-import {
-  InstagramIcon,
-  TelegramIcon,
-  FacebookIcon,
-  PhoneIcon,
-  ArrowRightIcon,
-} from '@/components/icons'
+import { CONTACTS } from '@/config/site'
+import { CONTACT_CHANNELS, channelHint } from '@/config/channels'
+import { PhoneIcon, ArrowRightIcon } from '@/components/icons'
 import styles from './Contacts.module.css'
-
-/* Канал без посилання в config/site.js не показуємо */
-const CHANNELS = [
-  { key: 'telegram', label: 'Telegram', hint: 'Написати в чат', icon: <TelegramIcon />, href: SOCIAL.telegram, accent: '#2aabee' },
-  { key: 'facebook', label: 'Facebook', hint: 'Messenger', icon: <FacebookIcon />, href: SOCIAL.facebook, accent: '#1877f2' },
-  { key: 'instagram', label: 'Instagram', hint: 'Написати в Direct', icon: <InstagramIcon />, href: SOCIAL.instagram, accent: '#d6249f' },
-].filter((c) => c.href)
 
 export default function Contacts() {
   return (
@@ -51,29 +39,63 @@ export default function Contacts() {
           {/* Вибір месенджера */}
           <div className={styles.channels}>
             <h2 className={styles.channelsTitle}>Оберіть месенджер</h2>
-            {CHANNELS.map((c) => (
-              <a
-                key={c.key}
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.channel}
-                style={{ '--accent': c.accent }}
-              >
-                <span className={styles.channelIcon}>{c.icon}</span>
-                <span className={styles.channelText}>
-                  <span className={styles.channelLabel}>{c.label}</span>
-                  <span className={styles.channelHint}>{c.hint}</span>
-                </span>
-                <span className={styles.channelArrow}>
-                  <ArrowRightIcon />
-                </span>
-              </a>
+            {CONTACT_CHANNELS.map((channel) => (
+              <ChannelRow key={channel.key} channel={channel} />
             ))}
           </div>
         </div>
       </Container>
     </section>
+  )
+}
+
+/**
+ * Один рядок месенджера.
+ * Канал без посилання показуємо теж, але неактивним: місце під нього вже
+ * видно, а натиснути ще нема куди (так зараз з Instagram).
+ */
+function ChannelRow({ channel }) {
+  const { label, href, accent, Icon } = channel
+
+  const content = (
+    <>
+      <span className={styles.channelIcon}>
+        <Icon />
+      </span>
+      <span className={styles.channelText}>
+        <span className={styles.channelLabel}>{label}</span>
+        <span className={styles.channelHint}>{channelHint(channel)}</span>
+      </span>
+      <span className={styles.channelArrow}>
+        <ArrowRightIcon />
+      </span>
+    </>
+  )
+
+  if (!href) {
+    return (
+      <span
+        className={`${styles.channel} ${styles.channelSoon}`}
+        style={{ '--accent': accent }}
+        aria-disabled="true"
+      >
+        {content}
+      </span>
+    )
+  }
+
+  // viber:// відкриває застосунок, а не сайт — нове вікно лишило б порожню вкладку
+  const opensSite = href.startsWith('http')
+
+  return (
+    <a
+      href={href}
+      {...(opensSite ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className={styles.channel}
+      style={{ '--accent': accent }}
+    >
+      {content}
+    </a>
   )
 }
 

@@ -1,15 +1,13 @@
-import { useState } from 'react'
 import Container from '@/components/Container'
 import Button from '@/components/Button'
 import ServiceCard from '@/components/ServiceCard'
-import ServiceModal from '@/components/ServiceModal'
+import Calculator from '@/components/Calculator'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { ArrowRightIcon } from '@/components/icons'
 import { SERVICES, PRICING, FEATURES } from '@/config/site'
 import styles from './Services.module.css'
 
 export default function Services() {
-  const [active, setActive] = useState(null)
   const openOrder = useOrderModal()
 
   return (
@@ -26,11 +24,7 @@ export default function Services() {
 
         <div className={styles.grid}>
           {SERVICES.map((service) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              onOpen={() => setActive(service)}
-            />
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
@@ -69,6 +63,13 @@ export default function Services() {
           </div>
         </div>
 
+        {/* ===== Калькулятор =====
+            Стоїть одразу під прайсом: людина щойно побачила ціни й тут
+            же може зібрати свій набір, не рахуючи в голові. */}
+        <div className={styles.calculator}>
+          <Calculator />
+        </div>
+
         {/* ===== Переваги ===== */}
         <div className={styles.features}>
           {FEATURES.map((f) => (
@@ -80,7 +81,6 @@ export default function Services() {
         </div>
       </Container>
 
-      <ServiceModal service={active} onClose={() => setActive(null)} />
     </section>
   )
 }

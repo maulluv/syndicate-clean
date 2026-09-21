@@ -1,0 +1,204 @@
+.calc {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 40px;
+}
+
+.head {
+  margin-bottom: 30px;
+}
+.title {
+  font-size: var(--fs-title-section);
+  margin: 10px 0 12px;
+}
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  max-width: 560px;
+  line-height: 1.55;
+}
+
+/* ===== Категорії ===== */
+.groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px 40px;
+}
+
+.groupTitle {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+  margin-bottom: 12px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ===== Позиція ===== */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background var(--transition), border-color var(--transition);
+}
+.itemActive {
+  background: var(--color-bg-soft);
+  border-color: color-mix(in srgb, var(--color-gold) 40%, transparent);
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.itemLabel {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  line-height: 1.35;
+}
+.itemPrice {
+  font-size: var(--fs-caption);
+  color: var(--color-text-dim);
+}
+
+/* ===== Лічильник ===== */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  padding: 2px;
+}
+
+/* 40px — щоб у кнопку впевнено влучав палець, а не тільки курсор */
+.step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition: background var(--transition), color var(--transition);
+}
+.step:disabled {
+  opacity: 0.3;
+}
+@media (hover: hover) {
+  .step:not(:disabled):hover {
+    background: var(--color-bg-soft);
+    color: var(--color-text);
+  }
+}
+.step:not(:disabled):active {
+  background: var(--color-gold-dim);
+}
+
+.count {
+  min-width: 26px;
+  text-align: center;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+/* ===== Підсумок =====
+   Стоїть у потоці, під списком позицій.
+
+   Раніше смуга була sticky й висіла над списком, поки людина гортає, — щоб
+   сума завжди була перед очима. На телефоні це виявилось гірше за проблему,
+   яку розвʼязувало: смуга накривала рядки, до яких людина саме тягнулась,
+   і на екрані одночасно висіли три плаваючі елементи — вона, кнопка звʼязку
+   й шапка. Власник назвав це «лівітуючою штукою», і по суті мав рацію:
+   підсумок важливий у момент, коли вибір зроблено, а не поверх самого вибору.
+
+   Якщо колись захочеться повернути — досить position: sticky й bottom,
+   але тоді треба знову розводити її з кнопкою звʼязку (див. історію файлу). */
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 18px 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-soft);
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+.totalActive {
+  border-color: var(--color-gold);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.totalText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.totalLabel {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
+.totalValue {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
+  line-height: 1.1;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  margin-top: 18px;
+  font-size: var(--fs-caption);
+  color: var(--color-text-dim);
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 700px) {
+  .calc {
+    padding: 26px 18px;
+    /* На вузькому екрані картка з рамкою всередині сторінки виглядає
+       затісною — розтягуємо її на всю ширину, як окрему секцію. */
+    margin-inline: calc(var(--container-pad) * -1);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .groups {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .item {
+    padding: 8px 10px;
+  }
+  .total {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .totalButton {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+

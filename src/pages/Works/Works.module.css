@@ -1,0 +1,131 @@
+.page {
+  padding: calc(var(--header-height) + 70px) 0 110px;
+}
+
+.head {
+  max-width: 640px;
+  margin-bottom: 46px;
+}
+.title {
+  font-size: var(--fs-title-page);
+  margin: 12px 0 18px;
+}
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+/* ===== До / після =====
+   auto-fill, а не auto-fit: з auto-fit одна-єдина робота розтягувалась би
+   на всю ширину сторінки й займала майже цілий екран. auto-fill лишає
+   колонки на місці, тож перший знімок виглядає як картка, а не як банер. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 34px;
+}
+
+.work {
+  margin: 0;
+}
+
+.caption {
+  padding-top: 16px;
+}
+.workTitle {
+  font-size: var(--fs-title-card);
+  margin-bottom: 4px;
+}
+.workNote {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* ===== Скріншоти подяк ===== */
+.shots {
+  margin-top: 90px;
+}
+.shotsHead {
+  margin-bottom: 26px;
+}
+.shotsTitle {
+  font-size: var(--fs-title-section);
+  margin-top: 10px;
+}
+
+.shotsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.shot {
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (hover: hover) {
+  .shot:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-gold);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.shotFull {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+/* ===== Заклик ===== */
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-border);
+}
+.ctaText {
+  font-family: var(--font-serif);
+  font-size: var(--fs-title-modal);
+  color: var(--color-text);
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 700px) {
+  .page {
+    padding: calc(var(--header-height) + 44px) 0 76px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .shots {
+    margin-top: 60px;
+  }
+  .shotsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  .cta {
+    margin-top: 56px;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}

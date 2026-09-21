@@ -3,22 +3,10 @@ import Container from '@/components/Container'
 import Logo from '@/components/Logo'
 import Button from '@/components/Button'
 import { useOrderModal } from '@/context/OrderModalContext'
-import { NAV_LINKS, SERVICES, SOCIAL, CONTACTS, BRAND } from '@/config/site'
-import {
-  InstagramIcon,
-  TelegramIcon,
-  FacebookIcon,
-  ArrowRightIcon,
-} from '@/components/icons'
+import { NAV_LINKS, SERVICES, CONTACTS, BRAND } from '@/config/site'
+import { CONTACT_CHANNELS } from '@/config/channels'
+import { ArrowRightIcon } from '@/components/icons'
 import styles from './Footer.module.css'
-
-/* Іконка показується завжди. Поки в config/site.js немає посилання —
-   вона неактивна (без кліку); впиши URL у SOCIAL — і вона одразу заживе. */
-const SOCIALS = [
-  { label: 'Telegram', href: SOCIAL.telegram, icon: <TelegramIcon size={18} /> },
-  { label: 'Facebook', href: SOCIAL.facebook, icon: <FacebookIcon size={18} /> },
-  { label: 'Instagram', href: SOCIAL.instagram, icon: <InstagramIcon size={18} /> },
-]
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -51,26 +39,29 @@ export default function Footer() {
               чищення з безпечною хімією та турботою про кожну деталь.
             </p>
             <div className={styles.socials}>
-              {SOCIALS.map((s) =>
-                s.href ? (
+              {/* Іконка є завжди. Немає посилання в config/site.js — вона
+                  просто неактивна; зʼявиться URL, і вона одразу заживе. */}
+              {CONTACT_CHANNELS.map(({ key, label, href, Icon }) =>
+                href ? (
                   <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    key={key}
+                    href={href}
+                    {...(href.startsWith('http')
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
                     className={styles.social}
-                    aria-label={s.label}
+                    aria-label={label}
                   >
-                    {s.icon}
+                    <Icon size={18} />
                   </a>
                 ) : (
                   <span
-                    key={s.label}
+                    key={key}
                     className={`${styles.social} ${styles.socialSoon}`}
-                    aria-label={`${s.label} — скоро`}
+                    aria-label={`${label} — скоро`}
                     title="Скоро"
                   >
-                    {s.icon}
+                    <Icon size={18} />
                   </span>
                 )
               )}

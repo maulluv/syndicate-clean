@@ -1,0 +1,221 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Імʼя й телефон поруч: два коротких поля в стовпчик роблять форму
+   вищою, ніж вона є насправді, і вона здається довшою для заповнення. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Розрахунок із калькулятора — показуємо, щоб людина бачила, що саме
+   надсилає, і не мусила вірити на слово. */
+.calc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  background: var(--color-gold-dim);
+}
+.calcLabel {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold-ink);
+}
+.calcBody {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  color: var(--color-text);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* ===== Поле ===== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+.optional {
+  color: var(--color-text-dim);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  transition: border-color var(--transition), background var(--transition);
+  /* На iOS шрифт менший за 16px змушує Safari наближати сторінку при
+     фокусі на полі, і після цього макет «їде». */
+  font-size: max(16px, var(--fs-body));
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background: var(--color-surface);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-text-dim);
+  opacity: 0.7;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 84px;
+  line-height: 1.5;
+}
+
+/* Поле з помилкою — підсвічуємо лише після відповіді сервера, а не поки
+   людина ще друкує: підкреслювати «неправильно» під час набору дратує. */
+.invalid {
+  border-color: #b5566e;
+  background: rgba(181, 86, 110, 0.06);
+}
+
+.hint {
+  font-size: var(--fs-caption);
+  color: #b5566e;
+}
+
+/* ===== Випадний список =====
+   Власна стрілка: рідна виглядає по-різному в кожній системі й вибивається
+   з решти форми. */
+.selectWrap {
+  position: relative;
+}
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.selectWrap::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--color-text-muted);
+  border-bottom: 1.5px solid var(--color-text-muted);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* ===== Пастка для ботів =====
+   Не display:none — частина автозаповнювачів такі поля свідомо пропускає.
+   Виносимо за межі екрана: для людини поля не існує, для бота воно є. */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ===== Помилка відправки ===== */
+.error {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+  background: rgba(181, 86, 110, 0.08);
+  border: 1px solid rgba(181, 86, 110, 0.28);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+.errorPhone {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-gold-ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ===== Успіх ===== */
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 12px 0 4px;
+  animation: doneIn 0.4s var(--ease);
+}
+
+.doneIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-full);
+  color: #17140d;
+  background: var(--color-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.doneTitle {
+  font-family: var(--font-serif);
+  font-size: var(--fs-title-modal);
+  margin-bottom: 8px;
+}
+
+.doneText {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  max-width: 340px;
+  line-height: 1.55;
+}
+
+@keyframes doneIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Кнопка відправки трохи відсунута — щоб її не натиснули випадково,
+   тягнучись до останнього поля. */
+.submit {
+  margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+  /* На вузькому екрані два поля в рядок стають надто тісними —
+     номер телефону в них уже не читається. */
+  .row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

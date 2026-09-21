@@ -38,6 +38,34 @@ export function FacebookIcon({ size = 22 }) {
   )
 }
 
+export function ViberIcon({ size = 22 }) {
+  return (
+    <svg {...base(size)} fill="currentColor">
+      {/*
+        Слухавка всередині — не білий колір, а справжня дірка в бульбашці
+        (fillRule="evenodd"). Це важливо: іконка живе і на кольоровому кружечку
+        в модалці, і темною на світлому футері. Білий колір у другому випадку
+        просто зник би, лишивши суцільну пляму.
+      */}
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2.2c-3.1 0-5.4.6-6.9 1.9C3.5 5.5 2.8 7.7 2.8 10.6c0 2.4.5 4.3 1.5 5.7.5.7 1.1 1.3 1.9 1.7v3.1c0 .6.7.9 1.1.5l2.4-2.3c.7.1 1.5.1 2.3.1 3.1 0 5.4-.6 6.9-1.9 1.6-1.4 2.3-3.6 2.3-6.5 0-2.9-.7-5.1-2.3-6.5C17.4 2.8 15.1 2.2 12 2.2Zm-2.94 4.5c-.3-.18-.68-.1-.9.18l-.72.94c-.35.46-.38 1.09-.07 1.58a11.6 11.6 0 0 0 2.2 2.55 11.6 11.6 0 0 0 2.85 1.79c.54.24 1.17.1 1.56-.34l.79-.88c.24-.27.24-.67 0-.94l-1.5-1.24c-.28-.23-.7-.19-.94.08l-.42.48a8.3 8.3 0 0 1-1.79-1.66l.5-.4c.29-.23.34-.64.13-.93L9.06 6.7Z"
+      />
+    </svg>
+  )
+}
+
+export function WhatsAppIcon({ size = 22 }) {
+  return (
+    <svg {...base(size)} fill="currentColor">
+      <path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.16-1.35a9.92 9.92 0 0 0 4.88 1.27h.01c5.5 0 9.96-4.46 9.96-9.96A9.9 9.9 0 0 0 19.1 4.9 9.9 9.9 0 0 0 12.04 2Zm0 1.82c2.17 0 4.21.85 5.75 2.38a8.08 8.08 0 0 1 2.38 5.76c0 4.5-3.66 8.14-8.14 8.14a8.2 8.2 0 0 1-4.13-1.12l-.3-.18-3.06.8.82-2.99-.2-.31a8.1 8.1 0 0 1-1.27-4.34c0-4.49 3.65-8.14 8.15-8.14Z" />
+      {/* Слухавка */}
+      <path d="M9.5 7.13c-.19-.42-.38-.43-.56-.44h-.48c-.16 0-.43.06-.66.3-.22.25-.86.85-.86 2.06s.88 2.39 1 2.56c.13.16 1.72 2.75 4.24 3.75 2.09.82 2.52.66 2.97.62.46-.04 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.29-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.78.97-.15.16-.29.19-.53.06-.25-.12-1.05-.38-2-1.23a7.5 7.5 0 0 1-1.38-1.72c-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.16.17-.27.25-.45.09-.16.04-.31-.02-.44-.06-.12-.55-1.34-.78-1.82Z" />
+    </svg>
+  )
+}
+
 export function ArrowRightIcon({ size = 18 }) {
   return (
     <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">
@@ -58,6 +86,43 @@ export function PhoneIcon({ size = 22 }) {
   return (
     <svg {...base(size)} stroke="currentColor" strokeWidth="1.6">
       <path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L16 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export function CameraIcon({ size = 22 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.6">
+      <path
+        d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7a1 1 0 0 0 .83-.45l.94-1.4A1 1 0 0 1 9.8 3.7h4.4a1 1 0 0 1 .83.45l.94 1.4a1 1 0 0 0 .83.45h1.7A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-8Z"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12.5" r="3.4" />
+    </svg>
+  )
+}
+
+export function TrashIcon({ size = 16 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.7">
+      <path d="M4 6.5h16M9.5 6.5V4.8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1.7" strokeLinecap="round" />
+      <path d="M6.5 6.5 7.4 19a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function PlusIcon({ size = 20 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export function MinusIcon({ size = 20 }) {
+  return (
+    <svg {...base(size)} stroke="currentColor" strokeWidth="1.8">
+      <path d="M5 12h14" strokeLinecap="round" />
     </svg>
   )
 }

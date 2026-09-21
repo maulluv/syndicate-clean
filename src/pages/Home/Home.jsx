@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Container from '@/components/Container'
 import Button from '@/components/Button'
+import Faq from '@/components/Faq'
 import { useOrderModal } from '@/context/OrderModalContext'
 import { INTRO, CHEMISTRY_INTRO, CONTACTS } from '@/config/site'
 import { ArrowRightIcon, CheckIcon, ShieldIcon } from '@/components/icons'
@@ -44,7 +45,17 @@ export default function Home() {
       </section>
 
       <IntroSection openOrder={openOrder} />
+
       <ChemistrySection />
+
+      {/* Часті питання в самому низу — останнє, що читають перед тим, як
+          піти або замовити. Саме тут доречно закрити рештки сумнівів.
+          Блок не рендериться, поки в config/site.js немає відповідей. */}
+      <section className={styles.faq}>
+        <Container>
+          <Faq />
+        </Container>
+      </section>
     </>
   )
 }

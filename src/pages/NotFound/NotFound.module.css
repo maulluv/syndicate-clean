@@ -1,0 +1,95 @@
+.page {
+  padding: calc(var(--header-height) + 80px) 0 120px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--color-gold-ink);
+}
+
+/* Велика цифра — декор, а не заголовок: сам заголовок нижче звичайним
+   текстом, щоб пошуковик і скрінрідер читали саме його. */
+.code {
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 3rem + 18vw, 14rem);
+  line-height: 0.9;
+  margin: 8px 0 4px;
+  color: var(--color-gold);
+  opacity: 0.32;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  font-size: var(--fs-title-page);
+  margin-bottom: 16px;
+}
+
+.lead {
+  max-width: 520px;
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  margin-bottom: 36px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+.link svg {
+  opacity: 0.5;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--color-gold-ink);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+  }
+  .link:hover svg {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: calc(var(--header-height) + 48px) 0 80px;
+  }
+  .actions {
+    width: 100%;
+    flex-direction: column;
+  }
+}

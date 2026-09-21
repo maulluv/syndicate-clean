@@ -150,3 +150,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Калькулятор — окремий блок під прайсом */
+.calculator {
+  margin-top: 90px;
+}
+
+@media (max-width: 700px) {
+  .calculator {
+    margin-top: 60px;
+  }
+}

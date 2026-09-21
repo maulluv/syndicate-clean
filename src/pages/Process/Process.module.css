@@ -1,0 +1,133 @@
+.page {
+  padding: calc(var(--header-height) + 70px) 0 110px;
+}
+
+.head {
+  max-width: 620px;
+  margin-bottom: 56px;
+}
+.title {
+  font-size: var(--fs-title-page);
+  margin: 12px 0 18px;
+}
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+/* ===== Кроки ===== */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  list-style: none;
+  counter-reset: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+  align-items: center;
+}
+
+/* Крок із роликом — текст і кадр поруч. Ролики вертикальні (знято на
+   телефон), тому колонка під відео вужча за текстову. */
+.step:has(.media) {
+  grid-template-columns: 1fr minmax(220px, 300px);
+  gap: 48px;
+}
+
+/* Ролик завжди праворуч від тексту.
+
+   Спершу я чергував сторони, але чергування рахує всі кроки підряд, а
+   ролики будуть не в кожному: якщо вони випадуть на другий і четвертий
+   крок, обидва опиняться з одного боку, і задум не спрацює. Передбачуваний
+   порядок «спочатку читаю, потім бачу» надійніший за красу, якої може
+   не вийти. */
+
+.text {
+  max-width: 560px;
+}
+
+.number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--color-gold);
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+.stepTitle {
+  font-size: var(--fs-title-modal);
+  margin-bottom: 12px;
+}
+
+.stepText {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+/* ===== Ролик ===== */
+.media {
+  /* 9:16 — так знімають на телефон, і так вони й прийдуть */
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== Заклик ===== */
+.cta {
+  margin-top: 90px;
+  padding-top: 42px;
+  border-top: 1px solid var(--color-border);
+}
+.ctaText {
+  font-family: var(--font-serif);
+  font-size: var(--fs-title-modal);
+  margin-bottom: 22px;
+  max-width: 520px;
+}
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 800px) {
+  .page {
+    padding: calc(var(--header-height) + 44px) 0 76px;
+  }
+  .head {
+    margin-bottom: 40px;
+  }
+  .steps {
+    gap: 48px;
+  }
+  /* На телефоні кадр стає під текстом — у вузькій колонці поруч
+     вертикальному ролику місця немає. */
+  .step:has(.media) {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .media {
+    max-width: 280px;
+  }
+  .number {
+    font-size: 2.1rem;
+  }
+  .cta {
+    margin-top: 60px;
+  }
+  .ctaActions {
+    flex-direction: column;
+  }
+}

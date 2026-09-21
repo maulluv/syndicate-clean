@@ -1,5 +1,5 @@
 .head {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 .title {
   font-size: var(--fs-title-modal);
@@ -8,77 +8,55 @@
 .subtitle {
   color: var(--color-text-muted);
   font-size: var(--fs-sm);
+  line-height: 1.55;
 }
 
-.channels {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.channel {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 18px;
-  border-radius: var(--radius-md);
+/* ===== Вкладки =====
+   Дві дії з різним наміром: «замовити» і «спитати скільки коштує». Друга
+   раніше була лише обіцянкою в тексті контактів, без жодного механізму. */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 22px;
+  padding: 4px;
+  border-radius: var(--radius-full);
   background: var(--color-bg-soft);
   border: 1px solid var(--color-border);
-  transition: border-color var(--transition), transform var(--transition), background var(--transition);
-}
-.channel:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
-  background: var(--color-surface-hover);
-  transform: translateY(-2px);
 }
 
-.channelIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  flex-shrink: 0;
+.tab {
+  /* 44px — мінімум, у який упевнено влучає палець */
+  min-height: 44px;
+  padding: 10px 14px;
   border-radius: var(--radius-full);
-  color: #fff;
-  background: var(--accent);
-}
-
-.channelText {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-}
-.channelLabel {
-  font-weight: 500;
-  font-size: var(--fs-body);
-  color: var(--color-text);
-}
-.channelHint {
-  font-size: var(--fs-caption);
+  font-size: var(--fs-sm);
   color: var(--color-text-muted);
+  transition: color var(--transition), background var(--transition), box-shadow var(--transition);
 }
-
-.channelArrow {
-  color: var(--color-text-dim);
-  transition: transform var(--transition), color var(--transition);
-}
-.channel:hover .channelArrow {
+.tabActive {
   color: var(--color-text);
-  transform: translateX(4px);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+}
+@media (hover: hover) {
+  .tab:not(.tabActive):hover {
+    color: var(--color-text);
+  }
 }
 
-/* Роздільник «або» */
+/* Роздільник «або напишіть у месенджер» */
 .divider {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 24px 0 18px;
+  margin: 26px 0 18px;
   color: var(--color-text-dim);
   font-size: var(--fs-eyebrow);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .divider::before,
 .divider::after {
@@ -88,9 +66,66 @@
   background: var(--color-border);
 }
 
-/* Телефон — такий самий рядок, як канали вище, тільки в золоті бренду,
-   а не в кольорі месенджера. Раніше це був суцільний текст в один рядок,
-   і на вузькому екрані він ламався просто посеред номера. */
+/* ===== Месенджери компактним рядком =====
+   Розгорнуті картки з підписами лишились на сторінці «Контакти». Тут форма
+   вже займає більшу частину вікна, тож канали стиснуті до іконки з назвою. */
+.channels {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 2px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.channelIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  color: #fff;
+  background: var(--accent);
+  transition: transform var(--transition);
+}
+
+.channelLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+@media (hover: hover) {
+  .channel:hover {
+    background: var(--color-bg-soft);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .channel:hover .channelIcon {
+    transform: translateY(-2px);
+  }
+  .channel:hover .channelLabel {
+    color: var(--color-text);
+  }
+}
+
+/* Канал без посилання — поки неактивний (зараз це Instagram) */
+.channelSoon {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ===== Телефон ===== */
 .phone {
   display: flex;
   align-items: center;
@@ -101,11 +136,6 @@
   border-radius: var(--radius-md);
   background: var(--color-surface);
   transition: border-color var(--transition), background var(--transition), transform var(--transition);
-}
-.phone:hover {
-  border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
-  background: var(--color-surface-hover);
-  transform: translateY(-2px);
 }
 
 .phoneIcon {
@@ -138,15 +168,38 @@
   /* Номер не розриваємо — читається як одне ціле */
   white-space: nowrap;
 }
-.phone:hover .channelArrow {
-  color: var(--color-text);
-  transform: translateX(4px);
+
+.channelArrow {
+  color: var(--color-text-dim);
+  transition: transform var(--transition), color var(--transition);
+}
+
+@media (hover: hover) {
+  .phone:hover {
+    border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+    background: var(--color-surface-hover);
+    transform: translateY(-2px);
+  }
+  .phone:hover .channelArrow {
+    color: var(--color-text);
+    transform: translateX(4px);
+  }
 }
 
 /* На вузькому екрані номер із nowrap не влазить поруч з іконкою і стрілкою.
    Стрілку прибираємо (рядок і без неї очевидно клікабельний), іконку та
    відступи стискаємо, а сам номер трохи зменшуємо — але не розриваємо. */
 @media (max-width: 380px) {
+  .channels {
+    gap: 2px;
+  }
+  .channelIcon {
+    width: 38px;
+    height: 38px;
+  }
+  .channelLabel {
+    font-size: 0.62rem;
+  }
   .phone {
     gap: 12px;
     padding: 12px 14px;

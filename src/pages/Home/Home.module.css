@@ -378,3 +378,15 @@
     width: 100%;
   }
 }
+
+/* Часті питання — остання секція головної */
+.faq:not(:empty) {
+  padding: 100px 0;
+  background: var(--color-bg-soft);
+}
+
+@media (max-width: 700px) {
+  .faq:not(:empty) {
+    padding: 64px 0;
+  }
+}

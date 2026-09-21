@@ -85,11 +85,15 @@
   box-shadow: inset 0 0 0 1px var(--color-border-strong);
   transition: color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
 }
-a.social:hover {
-  color: var(--color-gold-ink);
-  box-shadow: inset 0 0 0 1px var(--color-gold);
-  background: var(--color-gold-dim);
-  transform: translateY(-3px);
+/* Тільки для миші. На тачскріні :hover «залипає» після тику й лишається
+   підсвіченим, поки не торкнешся чогось іншого — виглядає як помилка. */
+@media (hover: hover) {
+  a.social:hover {
+    color: var(--color-gold-ink);
+    box-shadow: inset 0 0 0 1px var(--color-gold);
+    background: var(--color-gold-dim);
+    transform: translateY(-3px);
+  }
 }
 
 /* Канал без посилання: іконка видима, але неактивна */
@@ -119,9 +123,11 @@ a.social:hover {
   font-size: var(--fs-sm);
   transition: color var(--transition), padding-left var(--transition);
 }
-.link:hover {
-  color: var(--color-gold-ink);
-  padding-left: 5px;
+@media (hover: hover) {
+  .link:hover {
+    color: var(--color-gold-ink);
+    padding-left: 5px;
+  }
 }
 .listItem {
   color: var(--color-text-muted);
@@ -146,6 +152,47 @@ a.social:hover {
   font-family: var(--font-serif);
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
+}
+
+/* ===== Дотик =====
+   Подушечка пальця накриває близько 44 px — це та цифра, яку радять і Apple,
+   і Google. Рядки футера мали 18 px висоти й 13 px проміжку: щоб потрапити,
+   доводилось цілитись, а промах веде не туди, куди людина хотіла.
+
+   Збільшуємо не проміжки, а самі рядки: посилання стає блоком на всю ширину
+   колонки заввишки 44 px, текст лишається там, де був. Проміжок прибираємо —
+   інакше рядки просто розповзлись би, а так вони стоять щільно й рівно, і
+   натискається весь рядок, а не самі літери.
+
+   Проміжок мусив піти ще з однієї причини: якби зони дотику виросли поверх
+   нього, сусідні рядки почали б перекриватись, і тик по межі був би лотереєю.
+
+   Некліковні рядки в «Контактах» (місто, графік) теж вирівняні по 44 px —
+   інакше в одній колонці був би рваний ритм. */
+@media (hover: none) {
+  .list {
+    gap: 0;
+  }
+  .link,
+  .listItem {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  /* Той самий розмір, що й у рядків: 42 px не дотягували двох пікселів */
+  .social {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Лого у футері — теж посилання (веде на головну), і теж було 27 px.
+     Селектор по елементу, а не по класу: розмітку лого дає компонент Logo,
+     і його класи сюди не видно. Правило навмисно живе тут, а не в
+     Logo.module.css: там воно зачепило б і шапку, а її нас не просили
+     чіпати. */
+  .brandCol > a {
+    min-height: 44px;
+  }
 }
 
 /* ===== Адаптив ===== */

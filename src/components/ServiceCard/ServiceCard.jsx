@@ -1,22 +1,31 @@
+import { Link } from 'react-router-dom'
 import ServicePhoto from '@/components/ServicePhoto'
 import { useInView } from '@/hooks/useInView'
+import { servicePath } from '@/config/site'
 import styles from './ServiceCard.module.css'
 
 /**
- * ServiceCard — картка послуги.
- * Фото плавно наближається при наведенні; клік по картці відкриває модалку (onOpen).
+ * ServiceCard — картка послуги. Веде на власну сторінку послуги.
  *
- * @param {{title, desc, price, photo?, tone?}} service
- * @param {() => void} onOpen
+ * Раніше картка відкривала модалку з тим самим описом. Модалку прибрано:
+ * тепер у кожної послуги є сторінка, де є все те саме плюс ціни, склад
+ * роботи й кнопка замовлення. Тримати обидва варіанти означало б робити
+ * ту саму роботу двічі, а пошуковик про модалку взагалі не знає — вміст
+ * у ній зʼявляється лише після натискання.
+ *
+ * Це ще й посилання, а не кнопка: працює середній клік, «відкрити в новій
+ * вкладці» й обхід пошуковиком.
+ *
+ * @param {{id, title, desc, price, slug, photo?, tone?}} service
  */
-export default function ServiceCard({ service, onOpen }) {
+export default function ServiceCard({ service }) {
   const [cardRef, inView] = useInView()
 
   return (
-    <button
+    <Link
       ref={cardRef}
+      to={servicePath(service.slug)}
       className={`${styles.card} ${inView ? styles.inView : ''}`}
-      onClick={onOpen}
       aria-label={`Детальніше про «${service.title}»`}
     >
       <div className={styles.media}>
@@ -30,6 +39,6 @@ export default function ServiceCard({ service, onOpen }) {
         <p className={styles.desc}>{service.desc}</p>
         <span className={styles.more}>Детальніше →</span>
       </div>
-    </button>
+    </Link>
   )
 }
