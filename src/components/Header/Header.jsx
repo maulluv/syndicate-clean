@@ -34,6 +34,19 @@ export default function Header() {
     }
   }, [menuOpen])
 
+  // Esc закриває меню. Меню розкривається на весь екран і перекриває сторінку,
+  // тож вихід має бути не лише через ту саму кнопку в кутку: на зовнішній
+  // клавіатурі (планшет із чохлом-клавіатурою, десктоп у вузькому вікні) Esc —
+  // це те, що людина натискає не думаючи.
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
   return (
     <>
       <header
@@ -76,6 +89,7 @@ export default function Header() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? 'Закрити меню' : 'Відкрити меню'}
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <span />
             <span />
@@ -87,7 +101,10 @@ export default function Header() {
 
       {/* Мобільне меню — окремий елемент поза <header>, щоб на нього
           не впливав backdrop-filter хедера (інакше ламається position: fixed). */}
-      <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}>
+      <div
+        id="mobile-menu"
+        className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}
+      >
         <nav className={styles.mobileNav}>
           {NAV_LINKS.map((link) => (
             <NavLink
