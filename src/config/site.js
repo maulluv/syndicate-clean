@@ -627,15 +627,23 @@ export const PROCESS_PATH = '/yak-pracyuyemo'
    before / after — шляхи до знімків
    title        — що саме чистили: «Кутовий диван, тканина»
    note         — коротко про випадок: «Плями від кави, три роки» */
-export const WORKS = [
-  // {
-  //   id: 'sofa-coffee',
-  //   title: 'Кутовий диван',
-  //   note: 'Застарілі плями від кави',
-  //   before: '/works/sofa-coffee-before.jpg',
-  //   after: '/works/sofa-coffee-after.jpg',
-  // },
+const WORKS_RAW = [
+  {
+    id: 'sofa-drinks',
+    title: 'Диван',
+    note: 'Плями від напоїв',
+    before: '/works/sofa-drinks-before.jpg',
+    after: '/works/sofa-drinks-after.jpg',
+  },
 ]
+
+/* Та сама мітка версії, що й у фото послуг: перекадрував знімок під тим самим
+   імʼям — і нову версію видно одразу, а не коли комусь спливе кеш. */
+export const WORKS = WORKS_RAW.map((work) => ({
+  ...work,
+  before: versioned(work.before),
+  after: versioned(work.after),
+}))
 
 /* ===== Скріншоти подяк =====
    Справжні переписки з клієнтами. Виглядають чесно саме тому, що це не
